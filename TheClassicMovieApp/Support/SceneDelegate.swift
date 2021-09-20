@@ -13,10 +13,50 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = createTabbar()
+        
+        window?.makeKeyAndVisible()
+    }
+    
+    func createHomeNC() -> UINavigationController {
+        let homeVC = HomeViewController()
+        homeVC.title = "Home"
+        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
+        
+        return UINavigationController(rootViewController: homeVC)
+    }
+    
+    func createFutureNC() -> UINavigationController {
+        let futureVC = FutureMoviesViewController()
+        futureVC.title = "Schedule"
+        futureVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
+        
+        return UINavigationController(rootViewController: futureVC)
+    }
+    
+    func createUserProfileNC() -> UINavigationController {
+        let userProfileVC = UserProfileViewController()
+        userProfileVC.title = "Profile"
+        userProfileVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 2)
+        
+        return UINavigationController(rootViewController: userProfileVC)
+    }
+    
+    func createTabbar() -> UITabBarController {
+        let tabbar = UITabBarController()
+//        let cgColor = CGColor(red: 185, green: 152, blue: 73, alpha: 1)
+//        let color = UIColor(cgColor: cgColor)
+        UITabBar.appearance().tintColor = .systemGray
+        
+        tabbar.viewControllers = [createHomeNC(), createFutureNC(), createUserProfileNC()]
+        
+        return tabbar
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
