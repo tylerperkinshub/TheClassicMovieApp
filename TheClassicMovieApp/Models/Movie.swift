@@ -8,8 +8,11 @@
 import Foundation
 
 
-struct Movie: Codable {
+struct Movie: Codable, Hashable {
     
     let Name: String
     let StartDate: String
+    let Length: Int?
+    let ReleaseYear: Int?
+    let profileImage: String
 }

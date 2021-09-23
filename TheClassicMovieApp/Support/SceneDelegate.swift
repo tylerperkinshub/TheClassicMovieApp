@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createHomeNC() -> UINavigationController {
         let homeVC = HomeViewController()
         homeVC.title = "Home"
-        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
+        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 1)
         
         return UINavigationController(rootViewController: homeVC)
     }
@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createFutureNC() -> UINavigationController {
         let futureVC = FutureMoviesViewController()
         futureVC.title = "Schedule"
-        futureVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
+        futureVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 0)
         
         return UINavigationController(rootViewController: futureVC)
     }

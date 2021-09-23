@@ -23,6 +23,7 @@
 		8EF11EC326F9210D000788EF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EC226F9210D000788EF /* NetworkManager.swift */; };
 		8EF11EC626F9215D000788EF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EC526F9215D000788EF /* Movie.swift */; };
 		8EF11EC826F92593000788EF /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EC726F92592000788EF /* ErrorMessages.swift */; };
+		8EF11ECC26FBDEC7000788EF /* TCMOnTonightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,11 +40,12 @@
 		8EF11EB526F91E91000788EF /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		8EF11EB726F91EC0000788EF /* TCMLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMLabel.swift; sourceTree = "<group>"; };
 		8EF11EBA26F91FA0000788EF /* MovieListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListingCell.swift; sourceTree = "<group>"; };
-		8EF11EBD26F91FE8000788EF /* OnTonightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTonightCell.swift; sourceTree = "<group>"; };
+		8EF11EBD26F91FE8000788EF /* OnTonightCell.swift */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.swift; path = OnTonightCell.swift; sourceTree = "<group>"; };
 		8EF11EBF26F92040000788EF /* ProductionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionInfoCell.swift; sourceTree = "<group>"; };
 		8EF11EC226F9210D000788EF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		8EF11EC526F9215D000788EF /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		8EF11EC726F92592000788EF /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
+		8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMOnTonightImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +80,10 @@
 			children = (
 				8EF11EC426F92151000788EF /* Models */,
 				8EF11EC126F920F6000788EF /* Networking */,
+				8EF11EB226F91E0B000788EF /* Screens */,
 				8EF11EBC26F91FC1000788EF /* Cells */,
 				8EF11EB926F91F00000788EF /* Labels */,
-				8EF11EB226F91E0B000788EF /* Screens */,
+				8EF11ECD26FBDECD000788EF /* CustomViews */,
 				8EF11EA926F905FB000788EF /* Info.plist */,
 				8EF11EAF26F91D65000788EF /* Support */,
 				8EF11EC726F92592000788EF /* ErrorMessages.swift */,
@@ -122,8 +125,8 @@
 		8EF11EBC26F91FC1000788EF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8EF11EBA26F91FA0000788EF /* MovieListingCell.swift */,
 				8EF11EBD26F91FE8000788EF /* OnTonightCell.swift */,
+				8EF11EBA26F91FA0000788EF /* MovieListingCell.swift */,
 				8EF11EBF26F92040000788EF /* ProductionInfoCell.swift */,
 			);
 			path = Cells;
@@ -143,6 +146,14 @@
 				8EF11EC526F9215D000788EF /* Movie.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8EF11ECD26FBDECD000788EF /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF11E9926F905F7000788EF /* AppDelegate.swift in Sources */,
+				8EF11ECC26FBDEC7000788EF /* TCMOnTonightImageView.swift in Sources */,
 				8EF11EC326F9210D000788EF /* NetworkManager.swift in Sources */,
 				8EF11EC626F9215D000788EF /* Movie.swift in Sources */,
 				8EF11EB826F91EC0000788EF /* TCMLabel.swift in Sources */,
