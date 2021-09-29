@@ -5,12 +5,13 @@
 //  Created by Tyler Perkins on 9/20/21.
 //
 
-import Foundation
+import UIKit
 
 struct NetworkManager {
     
     static let shared = NetworkManager()
-    private let tcmJSON = "https://tcmws.tcm.com/tcmws/MonthSchedule"
+    private let tcmJSON = "https://tcmws.tcm.com/tcmws/NewSchedule/est"
+    let cache = NSCache<NSString, UIImage>()
     
     func getTCMData(completed:@escaping (Result<[Movie], TCMError>) -> Void) {
        
@@ -48,6 +49,8 @@ struct NetworkManager {
         }
         task.resume()
     }
+    
+    
     
     
     func removeDuplicateMovies(movie: [Movie]) -> [Movie] {

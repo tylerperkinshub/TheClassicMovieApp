@@ -25,7 +25,7 @@ class OnTonightCell: UICollectionViewCell {
    }
    
    func setOnTonightCell(movie: Movie) {
-      imageView.downloadImages(from: movie.profileImage)
+      imageView.downloadImages(from: movie.profileImage!)
       titleLabel.text = movie.Name
       timeLabel.text = movie.StartDate
    }

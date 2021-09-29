@@ -13,6 +13,8 @@ class FutureMoviesViewController: UIViewController {
     enum Section { case main }
     let tableView = UITableView()
     var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
+    var isSearching = false
     
     var dataSource: UITableViewDiffableDataSource<Section, Movie>!
      
@@ -20,6 +22,7 @@ class FutureMoviesViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewController()
+        configureSearchController()
         getMovies()
         configureTableView()
         configureDataSource()
@@ -49,6 +52,15 @@ class FutureMoviesViewController: UIViewController {
             cell.setMovieListingCell(movie: movie)
             return cell
         })
+    }
+    
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Find a film"
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
     }
     
     func getMovies() {
@@ -92,5 +104,49 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let activeArray = isSearching ? filteredMovies : movies
+        let movie = activeArray[indexPath.row]
+        
+        
+        let destinationVC = MovieDetailsViewController()
+        
+        destinationVC.movieHeaderImage.downloadImages(from: movie.profileImage!)
+        destinationVC.nameLabel.text = movie.Name
+        destinationVC.yearLabel.text = "(\(movie.ReleaseYear ?? 1900))"
+        destinationVC.lengthLabel.text = "\(movie.Length ?? 0) min"
+        destinationVC.ratingLabel.text = movie.tvRating
+        destinationVC.genreLabel.text = movie.tvGenres
+        destinationVC.directorLabel.text = "Dir. \(movie.Director ?? "")"
+        destinationVC.categoryLabel.text = movie.Franchise
+        destinationVC.startingLabel.text = "Stars: \(movie.Cast ?? "")"
+        destinationVC.descriptionBodyLabel.text = movie.Storyline
+
+        
+        
+        let navController = UINavigationController(rootViewController: destinationVC)
+        present(navController, animated: true)
+    }
     
 }
+
+extension FutureMoviesViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+        isSearching = true
+        filteredMovies = movies.filter { $0.Name.lowercased().contains(filter.lowercased()) }
+        reloadData(on: filteredMovies)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
+        reloadData(on: movies)
+    }
+    
+    
+    
+}
+
+
+

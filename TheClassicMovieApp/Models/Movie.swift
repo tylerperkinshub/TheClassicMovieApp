@@ -14,5 +14,11 @@ struct Movie: Codable, Hashable {
     let StartDate: String
     let Length: Int?
     let ReleaseYear: Int?
-    let profileImage: String
+    let profileImage: String?
+    let tvRating: String?
+    let tvGenres: String?
+    let Director: String?
+    let Storyline: String?
+    let Cast: String?
+    let Franchise: String?
 }

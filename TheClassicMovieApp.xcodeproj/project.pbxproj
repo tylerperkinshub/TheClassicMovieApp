@@ -24,6 +24,10 @@
 		8EF11EC626F9215D000788EF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EC526F9215D000788EF /* Movie.swift */; };
 		8EF11EC826F92593000788EF /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EC726F92592000788EF /* ErrorMessages.swift */; };
 		8EF11ECC26FBDEC7000788EF /* TCMOnTonightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */; };
+		8EF11ED126FD49B7000788EF /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11ED026FD49B7000788EF /* MovieDetailsViewController.swift */; };
+		8EF11ED327022FAD000788EF /* TCMBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11ED227022FAD000788EF /* TCMBodyLabel.swift */; };
+		8EF11EDB27027075000788EF /* CustomExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EDA27027075000788EF /* CustomExtensions.swift */; };
+		8EF11EDF27027874000788EF /* TCMGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11EDE27027874000788EF /* TCMGradientLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		8EF11EC526F9215D000788EF /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		8EF11EC726F92592000788EF /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
 		8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMOnTonightImageView.swift; sourceTree = "<group>"; };
+		8EF11ED026FD49B7000788EF /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		8EF11ED227022FAD000788EF /* TCMBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMBodyLabel.swift; sourceTree = "<group>"; };
+		8EF11EDA27027075000788EF /* CustomExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExtensions.swift; sourceTree = "<group>"; };
+		8EF11EDE27027874000788EF /* TCMGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMGradientLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +89,6 @@
 				8EF11EC426F92151000788EF /* Models */,
 				8EF11EC126F920F6000788EF /* Networking */,
 				8EF11EB226F91E0B000788EF /* Screens */,
-				8EF11EBC26F91FC1000788EF /* Cells */,
-				8EF11EB926F91F00000788EF /* Labels */,
 				8EF11ECD26FBDECD000788EF /* CustomViews */,
 				8EF11EA926F905FB000788EF /* Info.plist */,
 				8EF11EAF26F91D65000788EF /* Support */,
@@ -100,6 +106,7 @@
 				8EF11EA426F905FB000788EF /* Assets.xcassets */,
 				8EF11EA626F905FB000788EF /* LaunchScreen.storyboard */,
 				8EF11EA126F905F7000788EF /* TheClassicMovieApp.xcdatamodeld */,
+				8EF11EDA27027075000788EF /* CustomExtensions.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -109,6 +116,7 @@
 			children = (
 				8EF11EB026F91DF2000788EF /* HomeViewController.swift */,
 				8EF11EB326F91E38000788EF /* FutureMoviesViewController.swift */,
+				8EF11ED026FD49B7000788EF /* MovieDetailsViewController.swift */,
 				8EF11EB526F91E91000788EF /* UserProfileViewController.swift */,
 			);
 			path = Screens;
@@ -118,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF11EB726F91EC0000788EF /* TCMLabel.swift */,
+				8EF11ED227022FAD000788EF /* TCMBodyLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -151,9 +160,28 @@
 		8EF11ECD26FBDECD000788EF /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */,
+				8EF11ED427023048000788EF /* ViewControllers */,
+				8EF11EBC26F91FC1000788EF /* Cells */,
+				8EF11ED52702305B000788EF /* Views */,
+				8EF11EB926F91F00000788EF /* Labels */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		8EF11ED427023048000788EF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8EF11ED52702305B000788EF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8EF11ECB26FBDEC7000788EF /* TCMOnTonightImageView.swift */,
+				8EF11EDE27027874000788EF /* TCMGradientLayer.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,10 +255,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF11E9926F905F7000788EF /* AppDelegate.swift in Sources */,
+				8EF11EDB27027075000788EF /* CustomExtensions.swift in Sources */,
 				8EF11ECC26FBDEC7000788EF /* TCMOnTonightImageView.swift in Sources */,
 				8EF11EC326F9210D000788EF /* NetworkManager.swift in Sources */,
 				8EF11EC626F9215D000788EF /* Movie.swift in Sources */,
 				8EF11EB826F91EC0000788EF /* TCMLabel.swift in Sources */,
+				8EF11ED126FD49B7000788EF /* MovieDetailsViewController.swift in Sources */,
 				8EF11EB626F91E91000788EF /* UserProfileViewController.swift in Sources */,
 				8EF11EBB26F91FA0000788EF /* MovieListingCell.swift in Sources */,
 				8EF11EBE26F91FE8000788EF /* OnTonightCell.swift in Sources */,
@@ -240,6 +270,8 @@
 				8EF11EB426F91E38000788EF /* FutureMoviesViewController.swift in Sources */,
 				8EF11EA326F905F7000788EF /* TheClassicMovieApp.xcdatamodeld in Sources */,
 				8EF11EB126F91DF2000788EF /* HomeViewController.swift in Sources */,
+				8EF11ED327022FAD000788EF /* TCMBodyLabel.swift in Sources */,
+				8EF11EDF27027874000788EF /* TCMGradientLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

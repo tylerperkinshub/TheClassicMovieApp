@@ -1,0 +1,122 @@
+//
+//  MovieDetailsViewController.swift
+//  TheClassicMovieApp
+//
+//  Created by Tyler Perkins on 9/23/21.
+//
+
+import UIKit
+
+class MovieDetailsViewController: UIViewController {
+
+    let movieHeaderImage        = TCMOnTonightImageView(frame: .zero)
+    let linearFill              = TCMGradientLayer(frame: .zero)
+    let nameLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold)
+    let yearLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold)
+    let lengthLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light)
+    let ratingLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light)
+    let genreLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light)
+    let directorLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
+    let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
+    let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
+    let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .systemBackground
+        
+        configureViewController()
+        layoutUI()
+
+    }
+    
+    func configureViewController() {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
+        navigationItem.rightBarButtonItem = doneButton
+
+    }
+    
+    
+    
+    func layoutUI() {
+        view.addSubview(movieHeaderImage)
+//        view.addSubview(nameLabel)
+//        view.addSubview(yearLabel)
+        
+        let nameYearStack = UIStackView(arrangedSubviews: [nameLabel, yearLabel])
+        nameYearStack.translatesAutoresizingMaskIntoConstraints = false
+        nameYearStack.axis = .horizontal
+        
+        view.addSubview(nameYearStack)
+        
+        let lengthRatingGenreStack = UIStackView(arrangedSubviews: [lengthLabel, ratingLabel])
+        lengthRatingGenreStack.translatesAutoresizingMaskIntoConstraints = false
+        lengthRatingGenreStack.axis = .horizontal
+        
+        view.addSubview(lengthRatingGenreStack)
+        
+        let directorCategoryStack = UIStackView(arrangedSubviews: [directorLabel, categoryLabel])
+        directorCategoryStack.translatesAutoresizingMaskIntoConstraints = false
+        directorCategoryStack.axis = .horizontal
+        
+        view.addSubview(directorCategoryStack)
+        
+        let starsStack = UIStackView(arrangedSubviews: [startingLabel])
+        starsStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        view.addSubview(starsStack)
+        
+        let descriptionStack = UIStackView(arrangedSubviews: [descriptionBodyLabel])
+        descriptionStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(descriptionStack)
+        
+        NSLayoutConstraint.activate([
+            movieHeaderImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            movieHeaderImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            movieHeaderImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            movieHeaderImage.heightAnchor.constraint(equalToConstant: 280),
+            
+            nameYearStack.topAnchor.constraint(equalTo: movieHeaderImage.bottomAnchor, constant: 12),
+            nameYearStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            nameYearStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            nameYearStack.heightAnchor.constraint(equalToConstant: 24),
+            
+            lengthRatingGenreStack.topAnchor.constraint(equalTo: nameYearStack.bottomAnchor, constant: 12),
+            lengthRatingGenreStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            lengthRatingGenreStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            lengthRatingGenreStack.heightAnchor.constraint(equalToConstant: 20),
+            
+            directorCategoryStack.topAnchor.constraint(equalTo: lengthRatingGenreStack.bottomAnchor, constant: 12),
+            directorCategoryStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            directorCategoryStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            directorCategoryStack.heightAnchor.constraint(equalToConstant: 20),
+            
+            starsStack.topAnchor.constraint(equalTo: directorCategoryStack.bottomAnchor, constant: 12),
+            starsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            starsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            starsStack.heightAnchor.constraint(equalToConstant: 20),
+            
+            descriptionStack.topAnchor.constraint(equalTo: starsStack.bottomAnchor, constant: 12),
+            descriptionStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            descriptionStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            descriptionStack.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+
+    
+    @objc func dismissVC() {
+        dismiss(animated: true)
+        print("dismissedVC")
+    }
+    
+
+
+}
+
+
+
