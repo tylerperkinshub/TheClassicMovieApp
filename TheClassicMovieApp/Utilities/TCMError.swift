@@ -13,4 +13,6 @@ enum TCMError: String, Error {
     case invalidResponse = "Invalid response from server. Try again."
     case invalidData = "The data recived from the server was invalid. Try again."
     case unableToCompleteRequest = "Please check your internet connection"
+    case unableToSchedule = "Cannot add to your schedule"
+    case alreadyScheduled = "This movie has already been Scheduled"
 }

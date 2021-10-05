@@ -15,6 +15,8 @@ class FutureMoviesViewController: UIViewController {
     var movies: [Movie] = []
     var filteredMovies: [Movie] = []
     var isSearching = false
+    var movieSectionHeaderSet: Set<String> = []
+    
     
     var dataSource: UITableViewDiffableDataSource<Section, Movie>!
      
@@ -26,7 +28,8 @@ class FutureMoviesViewController: UIViewController {
         getMovies()
         configureTableView()
         configureDataSource()
-
+        
+        
     }
     
 
@@ -71,6 +74,7 @@ class FutureMoviesViewController: UIViewController {
             switch result {
             case .success(let movies) :
                 self.movies.append(contentsOf: movies)
+                self.createSectionHeaderSet(movies: movies)
                 self.reloadData(on: movies)
             case .failure(let error):
                 print(error)
@@ -85,6 +89,17 @@ class FutureMoviesViewController: UIViewController {
         snapshot.appendItems(movies)
         dataSource?.apply(snapshot)
     }
+    
+    
+    // creating data for section header text
+    func createSectionHeaderSet(movies: [Movie]){
+
+        for movie in movies {
+            movieSectionHeaderSet.insert(String(movie.StartDate.prefix(10)))
+            print(movieSectionHeaderSet)
+        }
+        print("Movie set: \(movieSectionHeaderSet.count)")
+    }
 
 }
 
@@ -94,7 +109,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
-    
+        
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell

@@ -90,6 +90,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnTonightCell.reuseIdentifier, for: indexPath) as! OnTonightCell
+            
+            
             cell.setOnTonightCell(movie: movie)
             return cell
         })

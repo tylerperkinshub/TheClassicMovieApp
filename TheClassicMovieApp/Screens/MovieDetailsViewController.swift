@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol MovieDetailsVCDelegate: class {
+    func didRequestFollowers(for movie: String)
+}
+
+
 class MovieDetailsViewController: UIViewController {
 
     let movieHeaderImage        = TCMOnTonightImageView(frame: .zero)
@@ -20,25 +25,28 @@ class MovieDetailsViewController: UIViewController {
     let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
-    
+    let addToScheduleButton     = TCMButton(backgroundColor: .tertiarySystemBackground, title: "Add to Schedule")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
         
         configureViewController()
         layoutUI()
+        configureAddToScheduleButton()
 
     }
     
     func configureViewController() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = doneButton
+        view.backgroundColor = .systemBackground
 
     }
     
+    private func configureAddToScheduleButton() {
+        addToScheduleButton.addTarget(self, action: #selector(addToScheduleButtonPressed), for: .touchUpInside)
+    }
     
     
     func layoutUI() {
@@ -47,18 +55,21 @@ class MovieDetailsViewController: UIViewController {
 //        view.addSubview(yearLabel)
         
         let nameYearStack = UIStackView(arrangedSubviews: [nameLabel, yearLabel])
+        nameYearStack.spacing = .leastNonzeroMagnitude + 5
         nameYearStack.translatesAutoresizingMaskIntoConstraints = false
         nameYearStack.axis = .horizontal
         
         view.addSubview(nameYearStack)
         
         let lengthRatingGenreStack = UIStackView(arrangedSubviews: [lengthLabel, ratingLabel])
+        lengthRatingGenreStack.spacing = .leastNonzeroMagnitude + 5
         lengthRatingGenreStack.translatesAutoresizingMaskIntoConstraints = false
         lengthRatingGenreStack.axis = .horizontal
         
         view.addSubview(lengthRatingGenreStack)
         
         let directorCategoryStack = UIStackView(arrangedSubviews: [directorLabel, categoryLabel])
+        directorCategoryStack.spacing = .leastNonzeroMagnitude + 5
         directorCategoryStack.translatesAutoresizingMaskIntoConstraints = false
         directorCategoryStack.axis = .horizontal
         
@@ -74,11 +85,13 @@ class MovieDetailsViewController: UIViewController {
         descriptionStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionStack)
         
+        view.addSubview(addToScheduleButton)
+        
         NSLayoutConstraint.activate([
             movieHeaderImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             movieHeaderImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             movieHeaderImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            movieHeaderImage.heightAnchor.constraint(equalToConstant: 280),
+            movieHeaderImage.heightAnchor.constraint(equalToConstant: 240),
             
             nameYearStack.topAnchor.constraint(equalTo: movieHeaderImage.bottomAnchor, constant: 12),
             nameYearStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
@@ -103,7 +116,12 @@ class MovieDetailsViewController: UIViewController {
             descriptionStack.topAnchor.constraint(equalTo: starsStack.bottomAnchor, constant: 12),
             descriptionStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             descriptionStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            descriptionStack.heightAnchor.constraint(equalToConstant: 100)
+            descriptionStack.heightAnchor.constraint(equalToConstant: 100),
+            
+            addToScheduleButton.topAnchor.constraint(equalTo: descriptionStack.bottomAnchor, constant: 12),
+            addToScheduleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            addToScheduleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            addToScheduleButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
     
@@ -114,7 +132,22 @@ class MovieDetailsViewController: UIViewController {
         print("dismissedVC")
     }
     
-
+    @objc func addToScheduleButtonPressed() {
+        print("schedule button pressed")
+        let scheduled = Scheduled(Name: "new movie", StartDate: "2/2/2022", Length: 180, ReleaseYear: 1920, tvRating: "")
+        
+        PersistenceManager.updateWith(scheduled: scheduled, actionType: .add) { [weak self] error in
+            guard let self = self else { return }
+            
+            guard let error = error else {
+                let alert = UIAlertController(title: "Movie added", message: "You have added a movie", preferredStyle: .alert)
+                DispatchQueue.main.async { self.present(alert, animated: true) }
+                return
+            }
+            let alert = UIAlertController(title: "Something went wrong", message: error.rawValue, preferredStyle: .alert)
+            DispatchQueue.main.async { self.present(alert, animated: true) }
+        }
+    }
 
 }
 

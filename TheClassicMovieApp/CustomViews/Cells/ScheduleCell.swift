@@ -1,33 +1,31 @@
 //
-//  MovieListingCell.swift
+//  ScheduleCell.swift
 //  TheClassicMovieApp
 //
-//  Created by Tyler Perkins on 9/20/21.
+//  Created by Tyler Perkins on 10/3/21.
 //
 
 import UIKit
 
-class MovieListingCell: UITableViewCell {
+class ScheduleCell: UITableViewCell {
 
-    static let reuseIdentifier = "MovieListingCell"
+    static let reuseID = "ScheduleCell"
     
-    let sectionLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold)
     let timeLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .bold)
     let nameLabel = TCMLabel(textAlignment: .center, fontSize: 12, fontWeight: .regular)
     let yearLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .regular)
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setMovieListingCell(movie: Movie) {
+    func setScheduleCell(movie: Scheduled) {
         
         let startTime = movieStartTime(movie: movie)
             
@@ -66,8 +64,7 @@ class MovieListingCell: UITableViewCell {
         
     }
     
-    
-    func movieStartTime(movie: Movie) -> String {
+    func movieStartTime(movie: Scheduled) -> String {
         var startTime = movie.StartDate
         
         let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
