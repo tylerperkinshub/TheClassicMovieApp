@@ -29,12 +29,9 @@ class MovieListingCell: UITableViewCell {
     
     func setMovieListingCell(movie: Movie) {
         
-        let startTime = movieStartTime(movie: movie)
-        let cleanedCast = cleanupStars(films: movie)
-        
-        timeLabel.text = startTime
+        timeLabel.text = movieStartTime(movie: movie)
         nameYearLabel.text = "\(movie.Name) (\(movie.ReleaseYear ?? 0))"
-        castLabel.text = cleanedCast
+        castLabel.text = cleanupStars(films: movie)
         
     }
     
@@ -43,13 +40,9 @@ class MovieListingCell: UITableViewCell {
         addSubview(nameYearLabel)
         addSubview(castLabel)
         
-
         let padding: CGFloat = 12
         
         NSLayoutConstraint.activate([
-            
-
-            
             timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
@@ -64,8 +57,6 @@ class MovieListingCell: UITableViewCell {
             castLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: padding),
             castLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             castLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
-            
-            
         ])
         
     }
@@ -79,20 +70,17 @@ class MovieListingCell: UITableViewCell {
         let midRangeRemoveDate = lowBoundRemoveDate ..< hiBoundRemoveDate
         startTime.removeSubrange(midRangeRemoveDate)
         
-        
         let lowBoundRemoveSeconds = startTime.index(startTime.startIndex, offsetBy: 5)
         let hiBoundRemoveSeconds = startTime.index(startTime.endIndex, offsetBy: -3)
         let midRangeRemoveSeconds = lowBoundRemoveSeconds ..< hiBoundRemoveSeconds
         startTime.removeSubrange(midRangeRemoveSeconds)
-        
-        
+
         if startTime.first == "0" {
             startTime.remove(at: startTime.startIndex)
         }
-             
-               
         return startTime
     }
+    
     
     func cleanupStars(films: Movie) -> String {
         var cleanedUpStarsReturned = ""
@@ -101,8 +89,6 @@ class MovieListingCell: UITableViewCell {
             cleanedUpStarsReturned = films.Cast?.replacingOccurrences(of: ",", with: ", ") ?? "No cast featured"
             print(cleanedUpStarsReturned)
         }
-        
         return cleanedUpStarsReturned
     }
-    
 }
