@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,10 @@
 		8E594EA527079842006FCC50 /* Scheduled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA427079842006FCC50 /* Scheduled.swift */; };
 		8E594EA82707F064006FCC50 /* TCMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA72707F064006FCC50 /* TCMButton.swift */; };
 		8EA46BB9270A72BE004DABC1 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA46BB8270A72BE004DABC1 /* ScheduleCell.swift */; };
+		8EA46BBC270D0AAC004DABC1 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8EA46BBB270D0AAC004DABC1 /* Collections */; };
+		8EA46BBE270D0AAC004DABC1 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 8EA46BBD270D0AAC004DABC1 /* DequeModule */; };
+		8EA46BC0270D0AAC004DABC1 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8EA46BBF270D0AAC004DABC1 /* OrderedCollections */; };
+		8EA46BC2270D0D61004DABC1 /* ScheduleDayHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA46BC1270D0D61004DABC1 /* ScheduleDayHeaderCell.swift */; };
 		8EF11E9926F905F7000788EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11E9826F905F7000788EF /* AppDelegate.swift */; };
 		8EF11E9B26F905F7000788EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11E9A26F905F7000788EF /* SceneDelegate.swift */; };
 		8EF11EA026F905F7000788EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EF11E9E26F905F7000788EF /* Main.storyboard */; };
@@ -39,6 +43,7 @@
 		8E594EA427079842006FCC50 /* Scheduled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduled.swift; sourceTree = "<group>"; };
 		8E594EA72707F064006FCC50 /* TCMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMButton.swift; sourceTree = "<group>"; };
 		8EA46BB8270A72BE004DABC1 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		8EA46BC1270D0D61004DABC1 /* ScheduleDayHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDayHeaderCell.swift; sourceTree = "<group>"; };
 		8EF11E9526F905F7000788EF /* TheClassicMovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheClassicMovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF11E9826F905F7000788EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8EF11E9A26F905F7000788EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +74,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EA46BBC270D0AAC004DABC1 /* Collections in Frameworks */,
+				8EA46BBE270D0AAC004DABC1 /* DequeModule in Frameworks */,
+				8EA46BC0270D0AAC004DABC1 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +170,7 @@
 				8EF11EBA26F91FA0000788EF /* MovieListingCell.swift */,
 				8EF11EBF26F92040000788EF /* ProductionInfoCell.swift */,
 				8EA46BB8270A72BE004DABC1 /* ScheduleCell.swift */,
+				8EA46BC1270D0D61004DABC1 /* ScheduleDayHeaderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -228,6 +237,11 @@
 			dependencies = (
 			);
 			name = TheClassicMovieApp;
+			packageProductDependencies = (
+				8EA46BBB270D0AAC004DABC1 /* Collections */,
+				8EA46BBD270D0AAC004DABC1 /* DequeModule */,
+				8EA46BBF270D0AAC004DABC1 /* OrderedCollections */,
+			);
 			productName = TheClassicMovieApp;
 			productReference = 8EF11E9526F905F7000788EF /* TheClassicMovieApp.app */;
 			productType = "com.apple.product-type.application";
@@ -255,6 +269,9 @@
 				Base,
 			);
 			mainGroup = 8EF11E8C26F905F7000788EF;
+			packageReferences = (
+				8EA46BBA270D0AAC004DABC1 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = 8EF11E9626F905F7000788EF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -289,6 +306,7 @@
 				8EF11EC626F9215D000788EF /* Movie.swift in Sources */,
 				8EF11EB826F91EC0000788EF /* TCMLabel.swift in Sources */,
 				8EF11ED126FD49B7000788EF /* MovieDetailsViewController.swift in Sources */,
+				8EA46BC2270D0D61004DABC1 /* ScheduleDayHeaderCell.swift in Sources */,
 				8E594EA527079842006FCC50 /* Scheduled.swift in Sources */,
 				8EF11EB626F91E91000788EF /* UserProfileViewController.swift in Sources */,
 				8EF11EBB26F91FA0000788EF /* MovieListingCell.swift in Sources */,
@@ -505,6 +523,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8EA46BBA270D0AAC004DABC1 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8EA46BBB270D0AAC004DABC1 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EA46BBA270D0AAC004DABC1 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		8EA46BBD270D0AAC004DABC1 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EA46BBA270D0AAC004DABC1 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		8EA46BBF270D0AAC004DABC1 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EA46BBA270D0AAC004DABC1 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8EF11EA126F905F7000788EF /* TheClassicMovieApp.xcdatamodeld */ = {

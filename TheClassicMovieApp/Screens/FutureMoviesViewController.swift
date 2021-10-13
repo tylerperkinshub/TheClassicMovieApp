@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OrderedCollections
 
 class FutureMoviesViewController: UIViewController {
     
@@ -15,7 +16,9 @@ class FutureMoviesViewController: UIViewController {
     var movies: [Movie] = []
     var filteredMovies: [Movie] = []
     var isSearching = false
-    var movieSectionHeaderSet: Set<String> = []
+    var movieSectionHeaderSet: OrderedSet<String> = []
+    var splitMoviesIntoDays: [[Movie]] = []
+
     
     
     var dataSource: UITableViewDiffableDataSource<Section, Movie>!
@@ -28,8 +31,7 @@ class FutureMoviesViewController: UIViewController {
         getMovies()
         configureTableView()
         configureDataSource()
-        
-        
+
     }
     
 
@@ -42,7 +44,7 @@ class FutureMoviesViewController: UIViewController {
         view.addSubview(tableView)
         
         tableView.frame = view.bounds
-        tableView.rowHeight = 40
+        tableView.rowHeight = 70
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -75,7 +77,10 @@ class FutureMoviesViewController: UIViewController {
             case .success(let movies) :
                 self.movies.append(contentsOf: movies)
                 self.createSectionHeaderSet(movies: movies)
+                self.splitMoviesIntoDays = self.convertMovieToDays(movies: movies, sections: self.movieSectionHeaderSet.count)
+                //print(self.splitMoviesIntoDays)
                 self.reloadData(on: movies)
+                
             case .failure(let error):
                 print(error)
             }
@@ -91,15 +96,34 @@ class FutureMoviesViewController: UIViewController {
     }
     
     
-    // creating data for section header text
+    // creating data for section header textt
     func createSectionHeaderSet(movies: [Movie]){
 
         for movie in movies {
-            movieSectionHeaderSet.insert(String(movie.StartDate.prefix(10)))
-            print(movieSectionHeaderSet)
+            movieSectionHeaderSet.append(String(movie.StartDate.prefix(10)))
+            //print(movieSectionHeaderSet)
         }
-        print("Movie set: \(movieSectionHeaderSet.count)")
+        //print("Movie set: \(movieSectionHeaderSet.count)")
     }
+    
+    func convertMovieToDays(movies: [Movie], sections: Int) -> [[Movie]] {
+        var moviesIntoDays: [[Movie]] = []
+        var todaysMovies: [Movie] = []
+        var itemIdx = 0
+        var dayIdx = 0
+
+        for movie in movies {
+            if movie.StartDate.prefix(10) == movieSectionHeaderSet[itemIdx] {
+                todaysMovies.append(movie)
+            } else {
+                moviesIntoDays.insert(todaysMovies, at: dayIdx)
+                itemIdx += 1
+                dayIdx += 1
+                todaysMovies = []
+            }
+        }
+        return moviesIntoDays
+        }
 
 }
 

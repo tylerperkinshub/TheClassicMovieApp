@@ -14,6 +14,7 @@ class ScheduleCell: UITableViewCell {
     let timeLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .bold)
     let nameLabel = TCMLabel(textAlignment: .center, fontSize: 12, fontWeight: .regular)
     let yearLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .regular)
+    let castLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .light)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,7 +27,6 @@ class ScheduleCell: UITableViewCell {
     }
     
     func setScheduleCell(movie: Scheduled) {
-        
         let startTime = movieStartTime(movie: movie)
             
         timeLabel.text = startTime
@@ -36,10 +36,12 @@ class ScheduleCell: UITableViewCell {
     }
     
     private func configure() {
-        addSubview(timeLabel)
-        addSubview(nameLabel)
-        addSubview(yearLabel)
+//        addSubview(timeLabel)
+//        addSubview(nameLabel)
+//        addSubview(yearLabel)
         
+        var stackView = UIStackView()
+        //stackView.addSubview([timeLabel, nameLabel, yearLabel])
 
         let padding: CGFloat = 12
         
@@ -85,6 +87,17 @@ class ScheduleCell: UITableViewCell {
              
                
         return startTime
+    }
+    
+    func cleanupStars(films: Scheduled) -> String {
+        var cleanedUpStarsReturned = ""
+        
+        if !((films.cast?.contains(", "))!) {
+            cleanedUpStarsReturned = films.cast?.replacingOccurrences(of: ",", with: ", ") ?? ""
+            print(cleanedUpStarsReturned)
+        }
+        
+        return cleanedUpStarsReturned
     }
     
 }

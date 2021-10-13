@@ -14,4 +14,5 @@ struct Scheduled: Codable, Hashable {
     let Length: Int?
     let ReleaseYear: Int?
     let tvRating: String?
+    let cast: String?
 }

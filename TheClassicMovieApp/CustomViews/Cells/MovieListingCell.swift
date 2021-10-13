@@ -12,9 +12,9 @@ class MovieListingCell: UITableViewCell {
     static let reuseIdentifier = "MovieListingCell"
     
     let sectionLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold)
-    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .bold)
-    let nameLabel = TCMLabel(textAlignment: .center, fontSize: 12, fontWeight: .regular)
-    let yearLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .regular)
+    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 24, fontWeight: .bold)
+    let nameYearLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold)
+    let castLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .light)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,37 +30,41 @@ class MovieListingCell: UITableViewCell {
     func setMovieListingCell(movie: Movie) {
         
         let startTime = movieStartTime(movie: movie)
-            
+        let cleanedCast = cleanupStars(films: movie)
+        
         timeLabel.text = startTime
-        nameLabel.text = movie.Name
-        yearLabel.text = "\(movie.ReleaseYear ?? 0)"
+        nameYearLabel.text = "\(movie.Name) (\(movie.ReleaseYear ?? 0))"
+        castLabel.text = cleanedCast
         
     }
     
     private func configure() {
         addSubview(timeLabel)
-        addSubview(nameLabel)
-        addSubview(yearLabel)
+        addSubview(nameYearLabel)
+        addSubview(castLabel)
         
 
         let padding: CGFloat = 12
         
         NSLayoutConstraint.activate([
-            timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            timeLabel.heightAnchor.constraint(equalToConstant: 16),
-            timeLabel.widthAnchor.constraint(equalToConstant: 60),
-                    
-            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: 10),
-            nameLabel.heightAnchor.constraint(equalToConstant: 16),
-            nameLabel.trailingAnchor.constraint(equalTo: yearLabel.leadingAnchor, constant: -10),
             
-            yearLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            yearLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
-            yearLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            yearLabel.heightAnchor.constraint(equalToConstant: 16),
-            yearLabel.widthAnchor.constraint(equalToConstant: 60)
+
+            
+            timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            timeLabel.widthAnchor.constraint(equalToConstant: 60),
+
+            nameYearLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            nameYearLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: padding),
+            nameYearLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            nameYearLabel.heightAnchor.constraint(equalToConstant: 16),
+
+            castLabel.topAnchor.constraint(equalTo: nameYearLabel.bottomAnchor, constant: padding),
+            castLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: padding),
+            castLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            castLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
+            
             
         ])
         
@@ -88,6 +92,17 @@ class MovieListingCell: UITableViewCell {
              
                
         return startTime
+    }
+    
+    func cleanupStars(films: Movie) -> String {
+        var cleanedUpStarsReturned = ""
+        
+        if !(films.Cast?.contains(", ") ?? false) {
+            cleanedUpStarsReturned = films.Cast?.replacingOccurrences(of: ",", with: ", ") ?? "No cast featured"
+            print(cleanedUpStarsReturned)
+        }
+        
+        return cleanedUpStarsReturned
     }
     
 }
