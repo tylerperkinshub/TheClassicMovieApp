@@ -170,7 +170,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let activeArray = isSearching ? filteredMovies : movies
-        let movie = activeArray[indexPath.row]
+        let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
         
         
         let destinationVC = MovieDetailsViewController()
