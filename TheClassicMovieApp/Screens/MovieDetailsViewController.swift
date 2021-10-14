@@ -80,11 +80,11 @@ class MovieDetailsViewController: UIViewController {
         
         
         view.addSubview(starsStack)
-        
+
         let descriptionStack = UIStackView(arrangedSubviews: [descriptionBodyLabel])
         descriptionStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionStack)
-        
+        descriptionBodyLabel.numberOfLines = 0
         view.addSubview(addToScheduleButton)
         
         NSLayoutConstraint.activate([

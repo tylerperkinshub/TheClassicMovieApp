@@ -21,4 +21,5 @@ struct Movie: Codable, Hashable {
     let Storyline: String?
     let Cast: String?
     let Franchise: String?
+    let SortDate: String
 }

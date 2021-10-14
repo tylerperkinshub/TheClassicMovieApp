@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import OrderedCollections
 
 class ScheduleDayHeaderCell: UITableViewHeaderFooterView {
 
     static let resueID = "ScheduleDayHeaderCell"
     
-    let dateLabel = TCMLabel(textAlignment: .left, fontSize: 26, fontWeight: .bold)
+    var dateLabel = TCMLabel(textAlignment: .left, fontSize: 26, fontWeight: .bold)
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -19,6 +20,12 @@ class ScheduleDayHeaderCell: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setHeaderCell(date: OrderedSet<String>) -> String {
+        
+        
+        return "Today"
     }
     
     func configure() {
