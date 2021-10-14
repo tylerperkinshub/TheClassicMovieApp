@@ -21,7 +21,7 @@ class FutureMoviesViewController: UIViewController {
 
     
     
-    var dataSource: UITableViewDiffableDataSource<Section, Movie>!
+    //var dataSource: UITableViewDiffableDataSource<Section, Movie>!
      
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class FutureMoviesViewController: UIViewController {
         configureSearchController()
         getMovies()
         configureTableView()
-        configureDataSource()
+        //configureDataSource()
 
     }
     
@@ -51,13 +51,14 @@ class FutureMoviesViewController: UIViewController {
         tableView.register(MovieListingCell.self, forCellReuseIdentifier: MovieListingCell.reuseIdentifier)
     }
     
-    func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Movie>(tableView: tableView, cellProvider: { tableView, indexPath, movie -> UITableViewCell in
-            let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
-            cell.setMovieListingCell(movie: movie)
-            return cell
-        })
-    }
+//    func configureDataSource() {
+//        dataSource = UITableViewDiffableDataSource<Section, Movie>(tableView: tableView, cellProvider: { tableView, indexPath, movie -> UITableViewCell in
+//            let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
+//
+//            cell.setMovieListingCell(movie: movie)
+//            return cell
+//        })
+//    }
     
     func configureSearchController() {
         let searchController = UISearchController()
@@ -79,7 +80,15 @@ class FutureMoviesViewController: UIViewController {
                 self.createSectionHeaderSet(movies: movies)
                 self.splitMoviesIntoDays = self.convertMovieToDays(movies: movies, sections: self.movieSectionHeaderSet.count)
                 //print(self.splitMoviesIntoDays)
-                self.reloadData(on: movies)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                //print(self.splitMoviesIntoDays)
+                //self.reloadData(on: self.splitMoviesIntoDays)
+//                for movies in self.splitMoviesIntoDays {
+//
+//                }
+               
                 
             case .failure(let error):
                 print(error)
@@ -88,12 +97,16 @@ class FutureMoviesViewController: UIViewController {
         }
     }
     
-    func reloadData(on movies: [Movie]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(movies)
-        dataSource?.apply(snapshot)
-    }
+//    func reloadData(on movies: [[Movie]]) {
+//        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
+//        snapshot.appendSections([.main])
+//        for movie in movies {
+//
+//            snapshot.appendItems(movie)
+//        }
+//
+//        dataSource?.apply(snapshot)
+//    }
     
     
     // creating data for section header textt
@@ -129,19 +142,31 @@ class FutureMoviesViewController: UIViewController {
 
 extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return splitMoviesIntoDays.count
     }
         
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "\(movieSectionHeaderSet[section])"
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //print(splitMoviesIntoDays)
+        return splitMoviesIntoDays[section].count
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
-        let movie = movies[indexPath.row]
+        let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
+        print(movie)
         cell.setMovieListingCell(movie: movie)
         
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let activeArray = isSearching ? filteredMovies : movies
@@ -175,16 +200,20 @@ extension FutureMoviesViewController: UISearchResultsUpdating, UISearchBarDelega
         guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
         isSearching = true
         filteredMovies = movies.filter { $0.Name.lowercased().contains(filter.lowercased()) }
-        reloadData(on: filteredMovies)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+
+        }
+
+
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
-        reloadData(on: movies)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
-    
-    
-    
 }
 
 
