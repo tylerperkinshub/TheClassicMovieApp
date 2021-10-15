@@ -32,8 +32,10 @@ enum PersistenceManager {
                     }
                     retrivedSchedule.append(scheduled)
                 case .remove:
-                    retrivedSchedule.removeAll(where: { $0.StartDate == scheduled.StartDate })
+                    retrivedSchedule.removeAll { $0.SortDate == scheduled.SortDate }
                 }
+                completed(save(scheduled: retrivedSchedule))
+                
             case .failure(let error):
                 completed(error)
             }

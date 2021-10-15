@@ -10,9 +10,10 @@ import Foundation
 struct Scheduled: Codable, Hashable {
     
     let Name: String
-    let StartDate: String
-    let Length: Int?
-    let ReleaseYear: Int?
-    let tvRating: String?
-    let cast: String?
+//    let StartDate: String
+//    let Length: Int?
+//    let ReleaseYear: Int?
+//    let tvRating: String?
+//    let cast: String?
+    let SortDate: String
 }

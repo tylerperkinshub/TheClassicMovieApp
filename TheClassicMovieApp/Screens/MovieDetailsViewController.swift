@@ -26,6 +26,7 @@ class MovieDetailsViewController: UIViewController {
     let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
     let addToScheduleButton     = TCMButton(backgroundColor: .tertiarySystemBackground, title: "Add to Schedule")
+    let startLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     
     
     override func viewDidLoad() {
@@ -45,7 +46,7 @@ class MovieDetailsViewController: UIViewController {
     }
     
     private func configureAddToScheduleButton() {
-        addToScheduleButton.addTarget(self, action: #selector(addToScheduleButtonPressed), for: .touchUpInside)
+        addToScheduleButton.addTarget(self, action: #selector(addToScheduleButtonTapped), for: .touchUpInside)
     }
     
     
@@ -86,6 +87,7 @@ class MovieDetailsViewController: UIViewController {
         view.addSubview(descriptionStack)
         descriptionBodyLabel.numberOfLines = 0
         view.addSubview(addToScheduleButton)
+        
         
         NSLayoutConstraint.activate([
             movieHeaderImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -132,24 +134,30 @@ class MovieDetailsViewController: UIViewController {
         print("dismissedVC")
     }
     
-    @objc func addToScheduleButtonPressed() {
+    @objc func addToScheduleButtonTapped() {
         print("schedule button pressed")
-        let scheduled = Scheduled(Name: "new movie", StartDate: "2/2/2022", Length: 180, ReleaseYear: 1920, tvRating: "", cast: "")
         
-        PersistenceManager.updateWith(scheduled: scheduled, actionType: .add) { [weak self] error in
+        let scheduledMovie = Scheduled(Name: nameLabel.text!, SortDate: directorLabel.text!)
+        PersistenceManager.updateWith(scheduled: scheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
             
             guard let error = error else {
-                let alert = UIAlertController(title: "Movie added", message: "You have added a movie", preferredStyle: .alert)
-                DispatchQueue.main.async { self.present(alert, animated: true) }
+                let alert = UIAlertController(title: "Success", message: "Movie Saved", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                print(scheduledMovie)
                 return
             }
-            let alert = UIAlertController(title: "Something went wrong", message: error.rawValue, preferredStyle: .alert)
-            DispatchQueue.main.async { self.present(alert, animated: true) }
+            
+            let alert = UIAlertController(title: "Issue with Persistence", message: error.rawValue, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+
         }
     }
-
 }
+
+
 
 
 

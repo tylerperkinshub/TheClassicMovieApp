@@ -22,7 +22,7 @@ class TCMButton: UIButton {
     
     init(backgroundColor: UIColor, title: String) {
         super.init(frame: .zero)
-        self.backgroundColor = backgroundColor
+        self.backgroundColor = .tertiarySystemFill
         self.setTitle(title, for: .normal)
         configure()
     }
