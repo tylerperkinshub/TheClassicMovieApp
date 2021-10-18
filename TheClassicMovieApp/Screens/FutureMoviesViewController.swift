@@ -14,21 +14,20 @@ class FutureMoviesViewController: UIViewController {
     enum Section { case main }
     let tableView = UITableView()
     var movies: [Movie] = []
-    var filteredMovies: [Movie] = []
-    var isSearching = false
+    var filteredMovies: [[Movie]] = []
     var movieSectionHeaderSet: OrderedSet<String> = []
     var splitMoviesIntoDays: [[Movie]] = []
 
+    var dataSource: UITableViewDiffableDataSource<String, Movie>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureViewController()
-        configureSearchController()
         getMovies()
         configureTableView()
     }
-    
+  
 
     func configureViewController() {
         view.backgroundColor = .systemBackground
@@ -46,15 +45,6 @@ class FutureMoviesViewController: UIViewController {
         tableView.register(MovieListingCell.self, forCellReuseIdentifier: MovieListingCell.reuseIdentifier)
     }
     
-
-    func configureSearchController() {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Find a film"
-        navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-    }
     
     func getMovies() {
         
@@ -75,12 +65,22 @@ class FutureMoviesViewController: UIViewController {
         }
     }
     
+    func updateData(on movies: [[Movie]]) {
+        var snapshot = NSDiffableDataSourceSnapshot<String, Movie>()
+        snapshot.appendSections(["\([movies].count)"])
+        for movie in movies {
+            
+            snapshot.appendItems(movie)
+        }
+       DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+    }
+    
         
     // creating data for section header textt
     func createSectionHeaderSet(movies: [Movie]){
 
         for movie in movies {
-            var dateText = movieSectionHeaderSet.append(String(movie.StartDate.prefix(10)))
+          let _ = movieSectionHeaderSet.append(String(movie.StartDate.prefix(10)))
         }
     }
     
@@ -114,10 +114,16 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var headerCell = ScheduleDayHeaderCell()
+        let formatedSection = movieSectionHeaderSet[section]
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
-        return headerCell.setHeaderCell(date: movieSectionHeaderSet)
+        let fromDate = dateFormatter.date(from: formatedSection)!
+        dateFormatter.dateFormat = "MMM d"
+        
+        return dateFormatter.string(from: fromDate)
     }
     
     
@@ -129,7 +135,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
         let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
-        print(movie)
+        
         cell.setMovieListingCell(movie: movie)
         
         return cell
@@ -137,8 +143,9 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let activeArray = isSearching ? filteredMovies : movies
-        let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
+        
+        var movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
+       
 
         let destinationVC = MovieDetailsViewController()
         
@@ -157,22 +164,3 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         present(navController, animated: true)
     }
 }
-
-extension FutureMoviesViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
-        isSearching = true
-        filteredMovies = movies.filter { $0.Name.lowercased().contains(filter.lowercased()) }
-        DispatchQueue.main.async { self.tableView.reloadData() }
-    }
-    
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        DispatchQueue.main.async {self.tableView.reloadData() }
-    }
-}
-
-
-

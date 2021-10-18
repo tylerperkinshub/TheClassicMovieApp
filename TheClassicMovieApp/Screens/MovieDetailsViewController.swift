@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MovieDetailsVCDelegate: class {
+protocol MovieDetailsVCDelegate: AnyObject {
     func didRequestFollowers(for movie: String)
 }
 

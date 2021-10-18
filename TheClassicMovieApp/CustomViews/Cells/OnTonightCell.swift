@@ -81,7 +81,7 @@ class OnTonightCell: UICollectionViewCell {
    }
    
    func setMoviesTonightData(movie: Movie) -> Movie {
-      var moviesTonight = movie
+      let moviesTonight = movie
       var startTime = movie.StartDate
       
       let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
@@ -99,7 +99,7 @@ class OnTonightCell: UICollectionViewCell {
       let date = Date()
       let dateformatter = DateFormatter()
       dateformatter.dateFormat = "MM/dd/YYYY"
-      let today = dateformatter.string(from: date)
+      _ = dateformatter.string(from: date)
       
       
       

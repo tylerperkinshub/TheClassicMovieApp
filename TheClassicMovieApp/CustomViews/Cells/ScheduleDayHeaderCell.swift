@@ -16,6 +16,7 @@ class ScheduleDayHeaderCell: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -23,9 +24,12 @@ class ScheduleDayHeaderCell: UITableViewHeaderFooterView {
     }
     
     func setHeaderCell(date: OrderedSet<String>) -> String {
+        var index = 0
+        let displayDate = date[index]
         
+        index += 1
         
-        return "Today"
+        return displayDate
     }
     
     func configure() {
