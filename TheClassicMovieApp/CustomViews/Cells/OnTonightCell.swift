@@ -38,7 +38,6 @@ class OnTonightCell: UICollectionViewCell {
       let stackView = UIStackView(arrangedSubviews: [separator, imageView, titleLabel, timeLabel])
       stackView.translatesAutoresizingMaskIntoConstraints = false
       stackView.axis = .vertical
-      //separator.backgroundColor = .quaternaryLabel
       stackView.layer.cornerRadius = 12
       stackView.backgroundColor = .quaternaryLabel
       
@@ -53,7 +52,6 @@ class OnTonightCell: UICollectionViewCell {
          stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
       ])
       stackView.setCustomSpacing(5, after: separator)
-      //stackView.setCustomSpacing(0, after: image)
       
       
       

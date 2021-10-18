@@ -141,10 +141,6 @@ class MovieDetailsViewController: UIViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-//                let alert = UIAlertController(title: "Success", message: "Movie Saved", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//                self.present(alert, animated: true)
-//                print(scheduledMovie)
                 self.dismissVC()
                 return
             }
