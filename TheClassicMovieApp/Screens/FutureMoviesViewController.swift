@@ -121,7 +121,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         dateFormatter.dateFormat = "MM/dd/yyyy"
         
         let fromDate = dateFormatter.date(from: formatedSection)!
-        dateFormatter.dateFormat = "MMM d"
+        dateFormatter.dateFormat = "MMM, d"
         
         return dateFormatter.string(from: fromDate)
     }
