@@ -25,7 +25,7 @@ class MovieDetailsViewController: UIViewController {
     let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
-    let addToScheduleButton     = TCMButton(backgroundColor: .tertiarySystemBackground, title: "Add to Schedule")
+    let addToScheduleButton     = TCMButton(backgroundColor: .systemGray2, title: "Add to Schedule")
     let startLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
     
     
@@ -85,7 +85,6 @@ class MovieDetailsViewController: UIViewController {
         let descriptionStack = UIStackView(arrangedSubviews: [descriptionBodyLabel])
         descriptionStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionStack)
-        descriptionBodyLabel.numberOfLines = 0
         view.addSubview(addToScheduleButton)
         
         
@@ -142,10 +141,11 @@ class MovieDetailsViewController: UIViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                let alert = UIAlertController(title: "Success", message: "Movie Saved", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-                print(scheduledMovie)
+//                let alert = UIAlertController(title: "Success", message: "Movie Saved", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//                self.present(alert, animated: true)
+//                print(scheduledMovie)
+                self.dismissVC()
                 return
             }
             

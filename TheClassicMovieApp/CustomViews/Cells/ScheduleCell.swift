@@ -9,62 +9,48 @@ import UIKit
 
 class ScheduleCell: UITableViewCell {
 
-//    static let reuseID = "ScheduleCell"
-//    
-//    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .bold)
-//    let nameLabel = TCMLabel(textAlignment: .center, fontSize: 12, fontWeight: .regular)
-//    let yearLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .regular)
-//    let castLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .light)
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        
-//        configure()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    func setScheduleCell(movie: Scheduled) {
-//        let startTime = movieStartTime(movie: movie)
-//            
-//        timeLabel.text = startTime
-//        nameLabel.text = movie.Name
-//        yearLabel.text = "\(movie.ReleaseYear ?? 0)"
-//        
-//    }
-//    
-//    private func configure() {
-////        addSubview(timeLabel)
-////        addSubview(nameLabel)
-////        addSubview(yearLabel)
-//        
-//        var stackView = UIStackView()
-//        //stackView.addSubview([timeLabel, nameLabel, yearLabel])
-//
-//        let padding: CGFloat = 12
-//        
-//        NSLayoutConstraint.activate([
-//            timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//            timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-//            timeLabel.heightAnchor.constraint(equalToConstant: 16),
-//            timeLabel.widthAnchor.constraint(equalToConstant: 60),
-//                    
-//            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//            nameLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: 10),
-//            nameLabel.heightAnchor.constraint(equalToConstant: 16),
-//            nameLabel.trailingAnchor.constraint(equalTo: yearLabel.leadingAnchor, constant: -10),
-//            
-//            yearLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//            yearLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
-//            yearLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-//            yearLabel.heightAnchor.constraint(equalToConstant: 16),
-//            yearLabel.widthAnchor.constraint(equalToConstant: 60)
-//            
-//        ])
-//        
-//    }
+    static let reuseID = "ScheduleCell"
+    
+    let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold)
+    let directorLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .regular)
+    
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configure()
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func set(schedule: Scheduled) {
+        nameLabel.text = schedule.Name
+        directorLabel.text = schedule.SortDate
+    }
+    
+    private func configure() {
+        addSubview(nameLabel)
+        addSubview(directorLabel)
+        
+        accessoryType = .disclosureIndicator
+        
+        let padding: CGFloat = 12
+        
+        NSLayoutConstraint.activate([
+            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            directorLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            directorLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 24),
+            directorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            directorLabel.heightAnchor.constraint(equalToConstant: 20)
+        
+        ])
+    }
+    
 //    
 //    func movieStartTime(movie: Scheduled) -> String {
 //        var startTime = movie.StartDate

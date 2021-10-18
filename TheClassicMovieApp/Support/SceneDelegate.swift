@@ -26,24 +26,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createHomeNC() -> UINavigationController {
         let homeVC = HomeViewController()
-        homeVC.title = "Home"
-        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 1)
+        homeVC.title = "Today"
+        let home = UIImage(systemName: "house.fill")
+        homeVC.tabBarItem = UITabBarItem(title: "", image: home, selectedImage: nil)
         
         return UINavigationController(rootViewController: homeVC)
     }
     
     func createFutureNC() -> UINavigationController {
         let futureVC = FutureMoviesViewController()
-        futureVC.title = "Schedule"
-        futureVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 0)
+        futureVC.title = "Future Movies"
+        let futureMovies = UIImage(systemName: "eyeglasses")
+        futureVC.tabBarItem = UITabBarItem(title: "", image: futureMovies, selectedImage: nil)
         
         return UINavigationController(rootViewController: futureVC)
     }
     
     func createUserProfileNC() -> UINavigationController {
         let userProfileVC = UserProfileViewController()
-        userProfileVC.title = "Profile"
-        userProfileVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 2)
+        userProfileVC.title = "Schedule"
+        let scheduled = UIImage(systemName: "alarm")
+        userProfileVC.tabBarItem = UITabBarItem(title: "", image: scheduled, selectedImage: nil)
         
         return UINavigationController(rootViewController: userProfileVC)
     }
