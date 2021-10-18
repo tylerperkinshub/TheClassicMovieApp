@@ -15,5 +15,5 @@ struct Scheduled: Codable, Hashable {
 //    let ReleaseYear: Int?
 //    let tvRating: String?
 //    let cast: String?
-    let SortDate: String
+//    let SortDate: String
 }

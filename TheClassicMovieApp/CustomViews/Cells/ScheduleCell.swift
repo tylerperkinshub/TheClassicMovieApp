@@ -10,12 +10,8 @@ import UIKit
 class ScheduleCell: UITableViewCell {
 
     static let reuseID = "ScheduleCell"
-    
-    let dateLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold)
-    let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold)
-    
 
-    
+    let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold)
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -30,11 +26,13 @@ class ScheduleCell: UITableViewCell {
     
     func set(schedule: Scheduled) {
         nameLabel.text = schedule.Name
+        
 
     }
     
     private func configure() {
         addSubview(nameLabel)
+
         
         
         accessoryType = .disclosureIndicator
@@ -45,9 +43,6 @@ class ScheduleCell: UITableViewCell {
             nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-            
-        
         ])
     }
 }

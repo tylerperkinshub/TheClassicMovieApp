@@ -81,12 +81,12 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let schedule = scheduledMovies[indexPath.row]
-        let destVC = MovieDetailsViewController()
-        destVC.nameLabel.text = schedule.Name
-        destVC.title = schedule.Name
-        
-        navigationController?.pushViewController(destVC, animated: true)
+//        let schedule = scheduledMovies[indexPath.row]
+//        let destVC = MovieDetailsViewController()
+//        destVC.nameLabel.text = schedule.Name
+//        destVC.title = schedule.Name
+//
+//        navigationController?.pushViewController(destVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

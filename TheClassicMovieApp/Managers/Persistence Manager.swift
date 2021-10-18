@@ -32,7 +32,8 @@ enum PersistenceManager {
                     }
                     retrivedSchedule.append(scheduled)
                 case .remove:
-                    retrivedSchedule.removeAll { $0.SortDate == scheduled.SortDate }
+                    #warning("This needs to be updated")
+                    retrivedSchedule.removeAll { $0.Name == scheduled.Name }
                 }
                 completed(save(scheduled: retrivedSchedule))
                 

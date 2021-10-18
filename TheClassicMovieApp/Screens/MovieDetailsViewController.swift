@@ -136,7 +136,7 @@ class MovieDetailsViewController: UIViewController {
     @objc func addToScheduleButtonTapped() {
         print("schedule button pressed")
         
-        let scheduledMovie = Scheduled(Name: nameLabel.text!, SortDate: directorLabel.text!)
+        let scheduledMovie = Scheduled(Name: nameLabel.text!)
         PersistenceManager.updateWith(scheduled: scheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
             
