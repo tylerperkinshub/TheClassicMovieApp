@@ -20,20 +20,24 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         configureViewController()
         configureCollectionView()
+        configureOnNowTableView()
         getMovies()
         configureDataSource()
         
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    
     func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
     
     private func configureCollectionView() {
         
@@ -44,6 +48,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         collectionView.register(OnTonightCell.self, forCellWithReuseIdentifier: OnTonightCell.reuseIdentifier)
     }
     
+    private func configureOnNowTableView() {
+        
+    }
+    
+    
     func createOnTonightSection(using section: Section) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -51,11 +60,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.93), heightDimension: .estimated(350))
         let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [layoutItem])
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        
         layoutSection.orthogonalScrollingBehavior = .groupPagingCentered
         
         return layoutSection
     }
+    
     
     func createCompositionalLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
@@ -72,7 +81,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     func getMovies() {
         
-        NetworkManager.shared.getTCMData { [weak self] result in
+        NetworkManager.shared.getMoviesTonight { [weak self] result in
             guard let self = self else { return }
             
             switch result {
@@ -82,7 +91,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             case .failure(let error):
                 print(error)
             }
-
         }
     }
 
@@ -90,12 +98,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnTonightCell.reuseIdentifier, for: indexPath) as! OnTonightCell
-            
-            
             cell.setOnTonightCell(movie: movie)
+            
             return cell
         })
     }
+    
     
     func reloadData(on movies: [Movie]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()

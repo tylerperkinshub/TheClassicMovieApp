@@ -92,13 +92,14 @@ class FutureMoviesViewController: UIViewController {
         var dayIdx = 0
 
         for movie in movies {
-            if movie.StartDate.prefix(10) == movieSectionHeaderSet[itemIdx] {
+            if movie.StartDate.prefix(10) != movieSectionHeaderSet[itemIdx] {
+            
                 todaysMovies.append(movie)
             } else {
                 moviesIntoDays.insert(todaysMovies, at: dayIdx)
+                todaysMovies = []
                 itemIdx += 1
                 dayIdx += 1
-                todaysMovies = []
             }
         }
         return moviesIntoDays
@@ -135,6 +136,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
         let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
+        // print(movie.Name)
         
         cell.setMovieListingCell(movie: movie)
         
@@ -146,7 +148,6 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         
         var movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
        
-
         let destinationVC = MovieDetailsViewController()
         
         destinationVC.movieHeaderImage.downloadImages(from: movie.profileImage!)

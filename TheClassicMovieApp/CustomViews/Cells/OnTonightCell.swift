@@ -84,6 +84,7 @@ class OnTonightCell: UICollectionViewCell {
       let moviesTonight = movie
       var startTime = movie.StartDate
       
+      
       let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
       let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
       let midRangeRemoveDate = lowBoundRemoveDate ..< hiBoundRemoveDate

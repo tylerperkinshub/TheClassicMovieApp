@@ -40,8 +40,8 @@ struct NetworkManager {
                 let decoder = JSONDecoder()
                 //decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movies = try decoder.decode([Movie].self, from: data)
-                let duplicatesRemoved = removeDuplicateMovies(movie: movies)
-                print(duplicatesRemoved.count)
+                let duplicatesRemoved = removeDuplicateMovies(movies: movies)
+                // print(duplicatesRemoved.count)
                 completed(.success(duplicatesRemoved))
             } catch {
                 completed(.failure(.invalidData))
@@ -51,18 +51,91 @@ struct NetworkManager {
     }
     
     
-    
-    
-    func removeDuplicateMovies(movie: [Movie]) -> [Movie] {
-        var uniqueMovies: Set<String> = []
-        var duplicatesRemoved: [Movie] = []
+    func getMoviesTonight(completed:@escaping (Result<[Movie], TCMError>) -> Void) {
+        guard let url = URL(string: tcmJSON) else {
+            completed(.failure(.unableToCompleteRequest))
+            return
+        }
         
-        for movie in movie {
-            if !uniqueMovies.contains(movie.StartDate) {
-                duplicatesRemoved.append(movie)
-                uniqueMovies.insert(movie.StartDate)
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completed(.failure(.unableToCompleteRequest))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                //decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let movies = try decoder.decode([Movie].self, from: data)
+                let moviesTonight = presentMoviesTonight(movies: movies)
+                // print(moviesTonight.count)
+                completed(.success(moviesTonight))
+            } catch {
+                completed(.failure(.invalidData))
             }
         }
+        task.resume()
+    }
+    
+    
+    
+    func removeDuplicateMovies(movies: [Movie]) -> [Movie] {
+        var uniqueMovies: Set<String> = []
+        var duplicatesRemoved: [Movie] = []
+
+        
+        
+        for movie in movies {
+            if !uniqueMovies.contains(movie.SortDate) {
+                duplicatesRemoved.append(movie)
+                uniqueMovies.insert(movie.SortDate)
+            }
+        }
+
         return duplicatesRemoved
      }
+    
+    
+    func presentMoviesTonight(movies: [Movie]) -> [Movie] {
+        var uniqueMovies: Set<String> = []
+        var duplicatesRemoved: [Movie] = []
+        var movieTonight: [Movie] = []
+        var movieTonightArray: [Movie] = []
+        
+        for movie in movies {
+            if !uniqueMovies.contains(movie.SortDate) {
+                duplicatesRemoved.append(movie)
+                uniqueMovies.insert(movie.SortDate)
+            }
+        }
+        
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let today = dateFormatter.string(from: date)
+        
+        movieTonight = duplicatesRemoved.filter { $0.StartDate == "\(today) 08:00:00 pm" }
+        
+        guard let idx1 = duplicatesRemoved.firstIndex(where: { $0 == movieTonight.first }) else {
+            return movieTonight
+        }
+        
+        for idx in stride(from: idx1, to: idx1 + 5, by: 1) {
+            //print("These are strided \(idx)")
+            movieTonightArray.append(duplicatesRemoved[idx])
+        }
+        
+        return movieTonightArray
+    }
 }

@@ -31,7 +31,7 @@ class TCMBodyLabel: UILabel {
         textColor                   = .secondaryLabel
         font                        = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth   = true
-        minimumScaleFactor          = 0.75
+        minimumScaleFactor          = 0.85
         lineBreakMode               = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
         numberOfLines = 0

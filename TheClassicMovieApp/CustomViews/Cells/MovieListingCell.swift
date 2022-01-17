@@ -85,10 +85,12 @@ class MovieListingCell: UITableViewCell {
     func cleanupStars(films: Movie) -> String {
         var cleanedUpStarsReturned = ""
         
-        if !(films.Cast?.contains(", ") ?? false) {
+        
+        if ((films.Cast?.contains(", ")) != nil) {
             cleanedUpStarsReturned = films.Cast?.replacingOccurrences(of: ",", with: ", ") ?? "No cast featured"
-            print(cleanedUpStarsReturned)
+            //print(cleanedUpStarsReturned)
         }
+
         return cleanedUpStarsReturned
     }
 }
