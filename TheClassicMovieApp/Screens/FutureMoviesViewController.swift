@@ -92,8 +92,7 @@ class FutureMoviesViewController: UIViewController {
         var dayIdx = 0
 
         for movie in movies {
-            if movie.StartDate.prefix(10) != movieSectionHeaderSet[itemIdx] {
-            
+            if movie.StartDate.prefix(10) == movieSectionHeaderSet[itemIdx] {
                 todaysMovies.append(movie)
             } else {
                 moviesIntoDays.insert(todaysMovies, at: dayIdx)
