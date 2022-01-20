@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createHomeNC() -> UINavigationController {
         let homeVC = HomeViewController()
-        homeVC.title = "Today"
+        homeVC.title = "On Tonight"
         let home = UIImage(systemName: "house.fill")
         homeVC.tabBarItem = UITabBarItem(title: "", image: home, selectedImage: nil)
         

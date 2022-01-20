@@ -35,7 +35,7 @@ class OnTonightCell: UICollectionViewCell {
    
    private func configure() {
       
-      let stackView = UIStackView(arrangedSubviews: [separator, imageView, titleLabel, timeLabel])
+      let stackView = UIStackView(arrangedSubviews: [separator, imageView, titleLabel, timeLabel, separator])
       stackView.translatesAutoresizingMaskIntoConstraints = false
       stackView.axis = .vertical
       stackView.layer.cornerRadius = 12
@@ -44,17 +44,20 @@ class OnTonightCell: UICollectionViewCell {
       contentView.addSubview(stackView)
 
       NSLayoutConstraint.activate([
-         separator.heightAnchor.constraint(equalToConstant: 2),
-         
+      
+         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+         timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+
          stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
          stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
          stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
          stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
       ])
+
       stackView.setCustomSpacing(5, after: separator)
-      
-      
-      
+      stackView.setCustomSpacing(8, after: timeLabel)
+  
    }
    
    func movieStartTime(movie: Movie) -> String {
@@ -101,9 +104,6 @@ class OnTonightCell: UICollectionViewCell {
       let dateformatter = DateFormatter()
       dateformatter.dateFormat = "MM/dd/YYYY"
       _ = dateformatter.string(from: date)
-      
-      
-      
       
       return moviesTonight
    }

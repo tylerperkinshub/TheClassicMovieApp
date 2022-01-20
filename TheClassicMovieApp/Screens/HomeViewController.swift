@@ -80,7 +80,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     
     func getMovies() {
-        
         NetworkManager.shared.getMoviesTonight { [weak self] result in
             guard let self = self else { return }
             

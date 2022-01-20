@@ -9,7 +9,7 @@ import UIKit
 
 class TCMOnTonightImageView: UIImageView {
 
-    let cache = NetworkManager.shared.cache
+    //let cache = NetworkManager.shared.cache
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class TCMOnTonightImageView: UIImageView {
     }
     
     private func configure() {
-        layer.cornerRadius = 12
+        layer.cornerRadius = 4
         clipsToBounds = true
         contentMode = .scaleAspectFill
         translatesAutoresizingMaskIntoConstraints = false
