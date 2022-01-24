@@ -12,7 +12,7 @@ class ScheduleDayHeaderCell: UITableViewHeaderFooterView {
 
     static let resueID = "ScheduleDayHeaderCell"
     
-    var dateLabel = TCMLabel(textAlignment: .left, fontSize: 26, fontWeight: .bold)
+    var dateLabel = TCMLabel(textAlignment: .left, fontSize: 26, fontWeight: .bold, minimumScaleFactor: 0.85)
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

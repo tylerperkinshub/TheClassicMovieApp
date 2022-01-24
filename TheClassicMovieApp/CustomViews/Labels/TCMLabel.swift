@@ -18,17 +18,17 @@ class TCMLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(textAlignment: NSTextAlignment, fontSize: CGFloat, fontWeight: UIFont.Weight) {
+    init(textAlignment: NSTextAlignment, fontSize: CGFloat, fontWeight: UIFont.Weight, minimumScaleFactor: CGFloat) {
         super.init(frame: .zero)
         configure()
         self.textAlignment = textAlignment
         self.font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)
+        self.minimumScaleFactor = minimumScaleFactor
     }
     
     private func configure() {
         textColor = .label
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.4
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }

@@ -147,7 +147,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
+        let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
        
         let destinationVC = MovieDetailsViewController()
         

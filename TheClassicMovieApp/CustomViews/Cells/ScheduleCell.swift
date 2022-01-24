@@ -11,7 +11,7 @@ class ScheduleCell: UITableViewCell {
 
     static let reuseID = "ScheduleCell"
 
-    let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold)
+    let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold, minimumScaleFactor: 0.85)
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,9 +32,6 @@ class ScheduleCell: UITableViewCell {
     
     private func configure() {
         addSubview(nameLabel)
-
-        
-        
         accessoryType = .disclosureIndicator
         
         let padding: CGFloat = 12

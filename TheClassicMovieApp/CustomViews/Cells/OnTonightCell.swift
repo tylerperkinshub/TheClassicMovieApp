@@ -11,8 +11,8 @@ class OnTonightCell: UICollectionViewCell {
    static let reuseIdentifier = "OnTonightCell"
     
    let imageView = TCMOnTonightImageView(frame: .zero)
-   let titleLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold)
-   let timeLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
+   let titleLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold, minimumScaleFactor: 0.85)
+   let timeLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
    let separator = UIView(frame: .zero)
     
    override init(frame: CGRect) {

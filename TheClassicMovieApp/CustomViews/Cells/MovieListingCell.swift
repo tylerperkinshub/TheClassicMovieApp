@@ -11,10 +11,10 @@ class MovieListingCell: UITableViewCell {
 
     static let reuseIdentifier = "MovieListingCell"
     
-    let sectionLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold)
-    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 24, fontWeight: .bold)
-    let nameYearLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold)
-    let castLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .light)
+    let sectionLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold, minimumScaleFactor: 0.85)
+    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 24, fontWeight: .bold, minimumScaleFactor: 0.5)
+    let nameYearLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .bold, minimumScaleFactor: 0.75)
+    let castLabel = TCMLabel(textAlignment: .left, fontSize: 12, fontWeight: .light, minimumScaleFactor: 0.85)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

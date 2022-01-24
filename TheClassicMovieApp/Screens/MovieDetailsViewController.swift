@@ -16,17 +16,17 @@ class MovieDetailsViewController: UIViewController {
 
     let movieHeaderImage        = TCMOnTonightImageView(frame: .zero)
     let linearFill              = TCMGradientLayer(frame: .zero)
-    let nameLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold)
-    let yearLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold)
-    let lengthLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light)
-    let ratingLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light)
-    let genreLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light)
-    let directorLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
-    let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
-    let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
+    let nameLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold, minimumScaleFactor: 0.85)
+    let yearLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold, minimumScaleFactor: 0.85)
+    let lengthLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light, minimumScaleFactor: 0.85)
+    let ratingLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light, minimumScaleFactor: 0.85)
+    let genreLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light, minimumScaleFactor: 0.85)
+    let directorLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
+    let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
+    let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
     let addToScheduleButton     = TCMButton(backgroundColor: .systemGray2, title: "Add to Schedule")
-    let startLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular)
+    let startLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     
     
     override func viewDidLoad() {
