@@ -26,7 +26,6 @@ class ScheduleCell: UITableViewCell {
     
     
     func set(schedule: Scheduled) {
-        print("Schedule name: \(schedule.Name), time \(schedule.StartDate)")
         nameLabel.text = schedule.Name
         timeLabel.text = schedule.StartDate
     }

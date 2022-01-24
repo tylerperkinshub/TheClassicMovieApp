@@ -7,11 +7,6 @@
 
 import UIKit
 
-//protocol MovieDetailsVCDelegate: AnyObject {
-//    func didRequestFollowers(for movie: String)
-//}
-
-
 class MovieDetailsViewController: UIViewController {
 
     let movieHeaderImage        = TCMOnTonightImageView(frame: .zero)
@@ -24,7 +19,7 @@ class MovieDetailsViewController: UIViewController {
     let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     let starringLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
-    let addToScheduleButton     = TCMButton(backgroundColor: .systemGray2, title: "Add to Schedule")
+    let addToScheduleButton     = TCMButton(backgroundColor: .systemGray, title: "Add to Schedule")
     let startLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     
     
@@ -37,12 +32,14 @@ class MovieDetailsViewController: UIViewController {
 
     }
     
+    
     func configureViewController() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = doneButton
         view.backgroundColor = .systemBackground
 
     }
+    
     
     private func configureAddToScheduleButton() {
         addToScheduleButton.addTarget(self, action: #selector(addToScheduleButtonTapped), for: .touchUpInside)
@@ -126,14 +123,13 @@ class MovieDetailsViewController: UIViewController {
     
     @objc func dismissVC() {
         dismiss(animated: true)
-        print("dismissedVC")
+       
     }
     
     
-    @objc func addToScheduleButtonTapped() {
-        print("schedule button pressed")
-        
+    @objc func addToScheduleButtonTapped() {        
         let scheduledMovie = Scheduled(Name: nameLabel.text!, StartDate: startLabel.text!, Length: lengthLabel.text!, ReleaseYear: yearLabel.text!)
+        
         PersistenceManager.updateWith(scheduled: scheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
             

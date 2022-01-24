@@ -10,16 +10,34 @@ import Foundation
 
 struct Movie: Codable, Hashable {
     
-    let Name: String
-    let StartDate: String
-    let Length: Int?
-    let ReleaseYear: Int?
+    let name: String
+    let startDate: String
+    let length: Int?
+    let releaseYear: Int?
     let profileImage: String?
-    let tvRating: String?
-    let tvGenres: String?
-    let Director: String?
-    let Storyline: String?
-    let Cast: String?
-    let Franchise: String?
-    let SortDate: String
+    let rating: String?
+    let genres: String?
+    let director: String?
+    let summary: String?
+    let cast: String?
+    let collection: String?
+    let sortDate: String
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case startDate = "StartDate"
+        case length = "Length"
+        case releaseYear = "ReleaseYear"
+        case profileImage = "profileImage"
+        case rating = "tvRating"
+        case genres = "tvGenres"
+        case director = "Director"
+        case summary = "Storyline"
+        case cast = "Cast"
+        case collection = "Franchise"
+        case sortDate = "SortDate"
+    }
+    
+
 }

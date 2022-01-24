@@ -9,9 +9,9 @@ import UIKit
 
 class UserProfileViewController: UIViewController {
 
-    let tableView = UITableView()
     var scheduledMovies: [Scheduled] = []
-    
+
+    let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

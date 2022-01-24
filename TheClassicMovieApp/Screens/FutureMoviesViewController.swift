@@ -12,11 +12,12 @@ class FutureMoviesViewController: UIViewController {
     
     
     enum Section { case main }
-    let tableView = UITableView()
+    
     var movies: [Movie] = []
     var movieSectionHeaderSet: OrderedSet<String> = []
     var splitMoviesIntoDays: [[Movie]] = []
 
+    let tableView = UITableView()
     var dataSource: UITableViewDiffableDataSource<String, Movie>!
     
     
@@ -65,22 +66,11 @@ class FutureMoviesViewController: UIViewController {
         }
     }
     
-    
-    func updateData(on movies: [[Movie]]) {
-        var snapshot = NSDiffableDataSourceSnapshot<String, Movie>()
-        snapshot.appendSections(["\([movies].count)"])
-        for movie in movies {
-            
-            snapshot.appendItems(movie)
-        }
-       DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
-    }
-    
         
     func createSectionHeaderSet(movies: [Movie]){
 
         for movie in movies {
-          let _ = movieSectionHeaderSet.append(String(movie.StartDate.prefix(10)))
+          let _ = movieSectionHeaderSet.append(String(movie.startDate.prefix(10)))
         }
     }
     
@@ -92,7 +82,7 @@ class FutureMoviesViewController: UIViewController {
         var dayIdx = 0
 
         for movie in movies {
-            if movie.StartDate.prefix(10) != movieSectionHeaderSet[itemIdx] {
+            if movie.startDate.prefix(10) != movieSectionHeaderSet[itemIdx] {
                 moviesIntoDays.insert(todaysMovies, at: dayIdx)
                 todaysMovies = []
                 todaysMovies.append(movie)
@@ -150,16 +140,16 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         let destinationVC = MovieDetailsViewController()
         
         destinationVC.movieHeaderImage.downloadImages(from: movie.profileImage!)
-        destinationVC.nameLabel.text = movie.Name
-        destinationVC.yearLabel.text = "(\(movie.ReleaseYear ?? 1900))"
-        destinationVC.lengthLabel.text = "\(movie.Length ?? 0) min"
-        destinationVC.ratingLabel.text = movie.tvRating
-        destinationVC.genreLabel.text = movie.tvGenres
-        destinationVC.directorLabel.text = "Dir. \(movie.Director ?? "")"
-        destinationVC.categoryLabel.text = movie.Franchise
-        destinationVC.starringLabel.text = "Stars: \(movie.Cast ?? "")"
-        destinationVC.descriptionBodyLabel.text = movie.Storyline
-        destinationVC.startLabel.text = movie.StartDate
+        destinationVC.nameLabel.text = movie.name
+        destinationVC.yearLabel.text = "(\(movie.releaseYear ?? 1900))"
+        destinationVC.lengthLabel.text = "\(movie.length ?? 0) min"
+        destinationVC.ratingLabel.text = movie.rating
+        destinationVC.genreLabel.text = movie.genres
+        destinationVC.directorLabel.text = "Dir. \(movie.director ?? "")"
+        destinationVC.categoryLabel.text = movie.collection
+        destinationVC.starringLabel.text = "Stars: \(movie.cast ?? "")"
+        destinationVC.descriptionBodyLabel.text = movie.summary
+        destinationVC.startLabel.text = movie.startDate
 
         let navController = UINavigationController(rootViewController: destinationVC)
         present(navController, animated: true)

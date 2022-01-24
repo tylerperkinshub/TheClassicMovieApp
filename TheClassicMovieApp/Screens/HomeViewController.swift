@@ -11,6 +11,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
 
     enum Section { case main }
     var movies: [Movie] = []
+    
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
     

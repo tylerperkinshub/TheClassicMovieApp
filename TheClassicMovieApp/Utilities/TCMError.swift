@@ -8,11 +8,14 @@
 import Foundation
 
 enum TCMError: String, Error {
+    //Network Errors
     case invalidUsername = "This was an invalid username. Try again."
     case unableToComplete = "Unable to complete request. Check your internet."
     case invalidResponse = "Invalid response from server. Try again."
     case invalidData = "The data recived from the server was invalid. Try again."
     case unableToCompleteRequest = "Please check your internet connection"
+    
+    //Persistence Errors
     case unableToSchedule = "Cannot add to your schedule"
     case alreadyScheduled = "This movie has already been Scheduled"
 }
