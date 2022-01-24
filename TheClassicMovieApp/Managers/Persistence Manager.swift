@@ -33,6 +33,7 @@ enum PersistenceManager {
                 case .remove:
                     scheduledMovie.removeAll { $0.startDate == scheduled.startDate }
                 }
+                print(scheduledMovie)
                 completed(save(scheduled: scheduledMovie))
 
             case .failure(let error):

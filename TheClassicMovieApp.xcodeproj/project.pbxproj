@@ -112,11 +112,11 @@
 		8EF11E9726F905F7000788EF /* TheClassicMovieApp */ = {
 			isa = PBXGroup;
 			children = (
-				8EF11EB226F91E0B000788EF /* Screens */,
+				8E594EA627079A21006FCC50 /* Utilities */,
 				8EF11EC426F92151000788EF /* Models */,
 				8EF11EC126F920F6000788EF /* Managers */,
+				8EF11EB226F91E0B000788EF /* Screens */,
 				8EF11ECD26FBDECD000788EF /* CustomViews */,
-				8E594EA627079A21006FCC50 /* Utilities */,
 				8EF11EA926F905FB000788EF /* Info.plist */,
 				8EF11EAF26F91D65000788EF /* Support */,
 			);

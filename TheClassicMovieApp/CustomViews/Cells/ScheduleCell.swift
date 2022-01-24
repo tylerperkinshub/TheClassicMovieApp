@@ -24,12 +24,9 @@ class ScheduleCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func set(schedule: Scheduled) {
-        nameLabel.text = schedule.name
-        timeLabel.text = schedule.startDate
+        
     }
-    
     
     private func configure() {
         addSubview(nameLabel)

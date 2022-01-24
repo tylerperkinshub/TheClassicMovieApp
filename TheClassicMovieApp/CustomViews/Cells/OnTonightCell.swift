@@ -24,16 +24,14 @@ class OnTonightCell: UICollectionViewCell {
       fatalError("init(coder:) has not been implemented")
    }
    
-   
    func setOnTonightCell(movie: Movie) {
       
       let startTime = movieStartTime(movie: movie)
       
       imageView.downloadImages(from: movie.profileImage!)
-      titleLabel.text = movie.name
+      titleLabel.text = movie.Name
       timeLabel.text = startTime
    }
-   
    
    private func configure() {
       
@@ -62,9 +60,8 @@ class OnTonightCell: UICollectionViewCell {
   
    }
    
-   
    func movieStartTime(movie: Movie) -> String {
-       var startTime = movie.startDate
+       var startTime = movie.StartDate
        
        let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
        let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
@@ -84,10 +81,9 @@ class OnTonightCell: UICollectionViewCell {
        return startTime
    }
    
-   
    func setMoviesTonightData(movie: Movie) -> Movie {
       let moviesTonight = movie
-      var startTime = movie.startDate
+      var startTime = movie.StartDate
       
       let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
       let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
@@ -106,4 +102,6 @@ class OnTonightCell: UICollectionViewCell {
       
       return moviesTonight
    }
+   
+    
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NetworkManager {
+struct NetworkManager {
     
     static let shared = NetworkManager()
     private let tcmJSON = "https://tcmws.tcm.com/tcmws/NewSchedule/est"
@@ -38,7 +38,7 @@ class NetworkManager {
             do {
                 let decoder = JSONDecoder()
                 let movies = try decoder.decode([Movie].self, from: data)
-                let duplicatesRemoved = self.removeDuplicateMovies(movies: movies)
+                let duplicatesRemoved = removeDuplicateMovies(movies: movies)
                 completed(.success(duplicatesRemoved))
             } catch {
                 completed(.failure(.invalidData))
@@ -74,7 +74,8 @@ class NetworkManager {
                 let decoder = JSONDecoder()
                 //decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movies = try decoder.decode([Movie].self, from: data)
-                let moviesTonight = self.presentMoviesTonight(movies: movies)
+                let moviesTonight = presentMoviesTonight(movies: movies)
+                // print(moviesTonight.count)
                 completed(.success(moviesTonight))
             } catch {
                 completed(.failure(.invalidData))
@@ -91,9 +92,9 @@ class NetworkManager {
         
         
         for movie in movies {
-            if !uniqueMovies.contains(movie.sortDate) {
+            if !uniqueMovies.contains(movie.SortDate) {
                 duplicatesRemoved.append(movie)
-                uniqueMovies.insert(movie.sortDate)
+                uniqueMovies.insert(movie.SortDate)
             }
         }
 
@@ -108,18 +109,19 @@ class NetworkManager {
         var movieTonightArray: [Movie] = []
         
         for movie in movies {
-            if !uniqueMovies.contains(movie.sortDate) {
+            if !uniqueMovies.contains(movie.SortDate) {
                 duplicatesRemoved.append(movie)
-                uniqueMovies.insert(movie.sortDate)
+                uniqueMovies.insert(movie.SortDate)
             }
         }
+        
         
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let today = dateFormatter.string(from: date)
         
-        movieTonight = duplicatesRemoved.filter { $0.startDate == "\(today) 08:00:00 pm" }
+        movieTonight = duplicatesRemoved.filter { $0.StartDate == "\(today) 08:00:00 pm" }
         
         guard let idx1 = duplicatesRemoved.firstIndex(where: { $0 == movieTonight.first }) else {
             return movieTonight

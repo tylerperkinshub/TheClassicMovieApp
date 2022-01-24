@@ -28,7 +28,7 @@ class MovieListingCell: UITableViewCell {
     
     func setMovieListingCell(movie: Movie) {
         timeLabel.text = movieStartTime(movie: movie)
-        nameYearLabel.text = "\(movie.name) (\(movie.releaseYear ?? 0))"
+        nameYearLabel.text = "\(movie.Name) (\(movie.ReleaseYear ?? 0))"
         castLabel.text = cleanupStars(films: movie)
         
     }
@@ -62,7 +62,7 @@ class MovieListingCell: UITableViewCell {
     
     
     func movieStartTime(movie: Movie) -> String {
-        var startTime = movie.startDate
+        var startTime = movie.StartDate
         
         let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
         let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
@@ -85,8 +85,9 @@ class MovieListingCell: UITableViewCell {
         var cleanedUpStarsReturned = ""
         
         
-        if ((films.cast?.contains(", ")) != nil) {
-            cleanedUpStarsReturned = films.cast?.replacingOccurrences(of: ",", with: ", ") ?? "No cast featured"
+        if ((films.Cast?.contains(", ")) != nil) {
+            cleanedUpStarsReturned = films.Cast?.replacingOccurrences(of: ",", with: ", ") ?? "No cast featured"
+            //print(cleanedUpStarsReturned)
         }
 
         return cleanedUpStarsReturned
