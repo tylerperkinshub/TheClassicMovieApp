@@ -12,8 +12,8 @@ class ScheduleCell: UITableViewCell {
     static let reuseID = "ScheduleCell"
 
     let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold, minimumScaleFactor: 0.85)
-    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold, minimumScaleFactor: 0.85)
-
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -25,25 +25,21 @@ class ScheduleCell: UITableViewCell {
     }
     
     func set(schedule: Scheduled) {
+        nameLabel.text = schedule.name
         
+
     }
     
     private func configure() {
         addSubview(nameLabel)
-        addSubview(timeLabel)
+        accessoryType = .disclosureIndicator
         
         let padding: CGFloat = 12
         
         NSLayoutConstraint.activate([
-            
-            timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            timeLabel.heightAnchor.constraint(equalToConstant: 18),
-            
-            nameLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: padding),
+            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            nameLabel.heightAnchor.constraint(equalToConstant: 18)
-
+            nameLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 }

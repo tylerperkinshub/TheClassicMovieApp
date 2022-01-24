@@ -12,34 +12,37 @@ enum PersistenceActionType {
 }
 
 enum PersistenceManager {
-    
     static private let defaults = UserDefaults.standard
     
-    enum Keys { static let scheduled = "scheduled" }
-    
+    enum Keys {
+        static let scheduled = "scheduled"
+    }
     
     static func updateWith(scheduled: Scheduled, actionType: PersistenceActionType, completed: @escaping (TCMError?) -> Void) {
         retrievedScheduled { result in
-            
             switch result {
-            case .success(var scheduledMovie):
+            case .success(let schedule):
+                var retrivedSchedule = schedule
+                
                 switch actionType {
                 case .add:
-                    guard !scheduledMovie.contains(scheduled) else {
+                    guard !retrivedSchedule.contains(scheduled) else {
                         completed(.alreadyScheduled)
                         return
                     }
-                    scheduledMovie.append(scheduled)
+                    retrivedSchedule.append(scheduled)
                 case .remove:
-                    scheduledMovie.removeAll { $0.startDate == scheduled.startDate }
-                }
-                print(scheduledMovie)
-                completed(save(scheduled: scheduledMovie))
 
+                    retrivedSchedule.removeAll { $0.startDate == scheduled.startDate }
+
+                    #warning("This needs to be updated")
+                    retrivedSchedule.removeAll { $0.name == scheduled.name }
+                }
+                completed(save(scheduled: retrivedSchedule))
+                
             case .failure(let error):
                 completed(error)
             }
-
         }
     }
     
@@ -54,7 +57,6 @@ enum PersistenceManager {
             let decoder = JSONDecoder()
             let schedule = try decoder.decode([Scheduled].self, from: scheduledData)
             completed(.success(schedule))
-
         } catch {
             completed(.failure(.unableToSchedule))
         }

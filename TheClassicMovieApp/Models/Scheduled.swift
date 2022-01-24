@@ -13,4 +13,5 @@ struct Scheduled: Codable, Hashable {
     let startDate: String
     let length: String
     let releaseYear: String
+
 }

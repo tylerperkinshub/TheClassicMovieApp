@@ -20,6 +20,7 @@ class MovieListingCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -27,12 +28,12 @@ class MovieListingCell: UITableViewCell {
     }
     
     func setMovieListingCell(movie: Movie) {
+        
         timeLabel.text = movieStartTime(movie: movie)
         nameYearLabel.text = "\(movie.Name) (\(movie.ReleaseYear ?? 0))"
         castLabel.text = cleanupStars(films: movie)
         
     }
-    
     
     private func configure() {
         addSubview(timeLabel)

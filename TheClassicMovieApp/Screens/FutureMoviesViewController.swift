@@ -14,11 +14,11 @@ class FutureMoviesViewController: UIViewController {
     enum Section { case main }
     let tableView = UITableView()
     var movies: [Movie] = []
+    var filteredMovies: [[Movie]] = []
     var movieSectionHeaderSet: OrderedSet<String> = []
     var splitMoviesIntoDays: [[Movie]] = []
 
     var dataSource: UITableViewDiffableDataSource<String, Movie>!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,6 @@ class FutureMoviesViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    
     func configureTableView() {
         view.addSubview(tableView)
         
@@ -48,6 +47,7 @@ class FutureMoviesViewController: UIViewController {
     
     
     func getMovies() {
+        
         NetworkManager.shared.getTCMData { [weak self] result in
             guard let self = self else { return }
             
@@ -65,7 +65,6 @@ class FutureMoviesViewController: UIViewController {
         }
     }
     
-    
     func updateData(on movies: [[Movie]]) {
         var snapshot = NSDiffableDataSourceSnapshot<String, Movie>()
         snapshot.appendSections(["\([movies].count)"])
@@ -77,6 +76,7 @@ class FutureMoviesViewController: UIViewController {
     }
     
         
+    // creating data for section header textt
     func createSectionHeaderSet(movies: [Movie]){
 
         for movie in movies {
@@ -137,6 +137,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
         let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
+        // print(movie.Name)
         
         
         cell.setMovieListingCell(movie: movie)
@@ -146,6 +147,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
        
         let destinationVC = MovieDetailsViewController()
@@ -158,9 +160,8 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         destinationVC.genreLabel.text = movie.tvGenres
         destinationVC.directorLabel.text = "Dir. \(movie.Director ?? "")"
         destinationVC.categoryLabel.text = movie.Franchise
-        destinationVC.starringLabel.text = "Stars: \(movie.Cast ?? "")"
+        destinationVC.startingLabel.text = "Stars: \(movie.Cast ?? "")"
         destinationVC.descriptionBodyLabel.text = movie.Storyline
-        destinationVC.startLabel.text = movie.StartDate
 
         let navController = UINavigationController(rootViewController: destinationVC)
         present(navController, animated: true)
@@ -171,5 +172,3 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         
     }
 }
-
-

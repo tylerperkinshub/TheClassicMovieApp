@@ -128,6 +128,7 @@ struct NetworkManager {
         }
         
         for idx in stride(from: idx1, to: idx1 + 5, by: 1) {
+            //print("These are strided \(idx)")
             movieTonightArray.append(duplicatesRemoved[idx])
         }
         
