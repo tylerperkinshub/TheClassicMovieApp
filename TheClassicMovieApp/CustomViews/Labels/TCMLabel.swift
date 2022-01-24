@@ -26,6 +26,7 @@ class TCMLabel: UILabel {
         self.minimumScaleFactor = minimumScaleFactor
     }
     
+    
     private func configure() {
         textColor = .label
         adjustsFontSizeToFitWidth = true

@@ -12,8 +12,8 @@ class ScheduleCell: UITableViewCell {
     static let reuseID = "ScheduleCell"
 
     let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold, minimumScaleFactor: 0.85)
-    
-    
+    let timeLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold, minimumScaleFactor: 0.85)
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -24,22 +24,30 @@ class ScheduleCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func set(schedule: Scheduled) {
+        print("Schedule name: \(schedule.Name), time \(schedule.StartDate)")
         nameLabel.text = schedule.Name
-        
-
+        timeLabel.text = schedule.StartDate
     }
+    
     
     private func configure() {
         addSubview(nameLabel)
-        accessoryType = .disclosureIndicator
+        addSubview(timeLabel)
         
         let padding: CGFloat = 12
         
         NSLayoutConstraint.activate([
-            nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
+            timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            timeLabel.heightAnchor.constraint(equalToConstant: 18),
+            
+            nameLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: padding),
             nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            nameLabel.heightAnchor.constraint(equalToConstant: 18)
+
         ])
     }
 }

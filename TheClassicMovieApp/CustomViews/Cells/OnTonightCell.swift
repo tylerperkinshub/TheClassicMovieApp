@@ -68,12 +68,10 @@ class OnTonightCell: UICollectionViewCell {
        let midRangeRemoveDate = lowBoundRemoveDate ..< hiBoundRemoveDate
        startTime.removeSubrange(midRangeRemoveDate)
        
-       
        let lowBoundRemoveSeconds = startTime.index(startTime.startIndex, offsetBy: 5)
        let hiBoundRemoveSeconds = startTime.index(startTime.endIndex, offsetBy: -3)
        let midRangeRemoveSeconds = lowBoundRemoveSeconds ..< hiBoundRemoveSeconds
        startTime.removeSubrange(midRangeRemoveSeconds)
-       
        
        if startTime.first == "0" {
            startTime.remove(at: startTime.startIndex)
@@ -87,18 +85,15 @@ class OnTonightCell: UICollectionViewCell {
       let moviesTonight = movie
       var startTime = movie.StartDate
       
-      
       let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
       let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
       let midRangeRemoveDate = lowBoundRemoveDate ..< hiBoundRemoveDate
       startTime.removeSubrange(midRangeRemoveDate)
       
-      
       let lowBoundRemoveSeconds = startTime.index(startTime.startIndex, offsetBy: 5)
       let hiBoundRemoveSeconds = startTime.index(startTime.endIndex, offsetBy: -3)
       let midRangeRemoveSeconds = lowBoundRemoveSeconds ..< hiBoundRemoveSeconds
       startTime.removeSubrange(midRangeRemoveSeconds)
-      
       
       let date = Date()
       let dateformatter = DateFormatter()

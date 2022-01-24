@@ -7,15 +7,14 @@
 
 import UIKit
 
-protocol MovieDetailsVCDelegate: AnyObject {
-    func didRequestFollowers(for movie: String)
-}
+//protocol MovieDetailsVCDelegate: AnyObject {
+//    func didRequestFollowers(for movie: String)
+//}
 
 
 class MovieDetailsViewController: UIViewController {
 
     let movieHeaderImage        = TCMOnTonightImageView(frame: .zero)
-    let linearFill              = TCMGradientLayer(frame: .zero)
     let nameLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold, minimumScaleFactor: 0.85)
     let yearLabel               = TCMLabel(textAlignment: .left, fontSize: 20, fontWeight: .bold, minimumScaleFactor: 0.85)
     let lengthLabel             = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light, minimumScaleFactor: 0.85)
@@ -23,10 +22,10 @@ class MovieDetailsViewController: UIViewController {
     let genreLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .light, minimumScaleFactor: 0.85)
     let directorLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     let categoryLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
-    let startingLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
+    let starringLabel           = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     let descriptionBodyLabel    = TCMBodyLabel(textAlignment: .center)
     let addToScheduleButton     = TCMButton(backgroundColor: .systemGray2, title: "Add to Schedule")
-    let startLabel = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
+    let startLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     
     
     override func viewDidLoad() {
@@ -52,8 +51,6 @@ class MovieDetailsViewController: UIViewController {
     
     func layoutUI() {
         view.addSubview(movieHeaderImage)
-//        view.addSubview(nameLabel)
-//        view.addSubview(yearLabel)
         
         let nameYearStack = UIStackView(arrangedSubviews: [nameLabel, yearLabel])
         nameYearStack.spacing = .leastNonzeroMagnitude + 5
@@ -76,7 +73,7 @@ class MovieDetailsViewController: UIViewController {
         
         view.addSubview(directorCategoryStack)
         
-        let starsStack = UIStackView(arrangedSubviews: [startingLabel])
+        let starsStack = UIStackView(arrangedSubviews: [starringLabel])
         starsStack.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -126,19 +123,20 @@ class MovieDetailsViewController: UIViewController {
         ])
     }
     
-
     
     @objc func dismissVC() {
         dismiss(animated: true)
         print("dismissedVC")
     }
     
+    
     @objc func addToScheduleButtonTapped() {
         print("schedule button pressed")
         
-        let scheduledMovie = Scheduled(Name: nameLabel.text!)
+        let scheduledMovie = Scheduled(Name: nameLabel.text!, StartDate: startLabel.text!, Length: lengthLabel.text!, ReleaseYear: yearLabel.text!)
         PersistenceManager.updateWith(scheduled: scheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
+            
             
             guard let error = error else {
                 self.dismissVC()
@@ -152,6 +150,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
 }
+
 
 
 

@@ -12,34 +12,34 @@ enum PersistenceActionType {
 }
 
 enum PersistenceManager {
+    
     static private let defaults = UserDefaults.standard
     
-    enum Keys {
-        static let scheduled = "scheduled"
-    }
+    enum Keys { static let scheduled = "scheduled" }
+    
     
     static func updateWith(scheduled: Scheduled, actionType: PersistenceActionType, completed: @escaping (TCMError?) -> Void) {
         retrievedScheduled { result in
+            
             switch result {
-            case .success(let schedule):
-                var retrivedSchedule = schedule
-                
+            case .success(var scheduledMovie):
                 switch actionType {
                 case .add:
-                    guard !retrivedSchedule.contains(scheduled) else {
+                    guard !scheduledMovie.contains(scheduled) else {
                         completed(.alreadyScheduled)
                         return
                     }
-                    retrivedSchedule.append(scheduled)
+                    scheduledMovie.append(scheduled)
                 case .remove:
-                    #warning("This needs to be updated")
-                    retrivedSchedule.removeAll { $0.Name == scheduled.Name }
+                    scheduledMovie.removeAll { $0.StartDate == scheduled.StartDate }
                 }
-                completed(save(scheduled: retrivedSchedule))
-                
+                print(scheduledMovie)
+                completed(save(scheduled: scheduledMovie))
+
             case .failure(let error):
                 completed(error)
             }
+
         }
     }
     
@@ -54,6 +54,7 @@ enum PersistenceManager {
             let decoder = JSONDecoder()
             let schedule = try decoder.decode([Scheduled].self, from: scheduledData)
             completed(.success(schedule))
+
         } catch {
             completed(.failure(.unableToSchedule))
         }

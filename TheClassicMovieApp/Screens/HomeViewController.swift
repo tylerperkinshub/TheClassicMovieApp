@@ -20,7 +20,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         
         configureViewController()
         configureCollectionView()
-        configureOnNowTableView()
         getMovies()
         configureDataSource()
         
@@ -46,10 +45,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.register(OnTonightCell.self, forCellWithReuseIdentifier: OnTonightCell.reuseIdentifier)
-    }
-    
-    private func configureOnNowTableView() {
-        
     }
     
     

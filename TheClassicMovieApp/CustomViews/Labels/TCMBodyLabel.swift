@@ -14,11 +14,9 @@ class TCMBodyLabel: UILabel {
         configure()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     init(textAlignment: NSTextAlignment) {
         super.init(frame: .zero)

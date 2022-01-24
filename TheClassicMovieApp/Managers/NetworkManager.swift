@@ -13,6 +13,7 @@ struct NetworkManager {
     private let tcmJSON = "https://tcmws.tcm.com/tcmws/NewSchedule/est"
     let cache = NSCache<NSString, UIImage>()
     
+    
     func getTCMData(completed:@escaping (Result<[Movie], TCMError>) -> Void) {
        
         guard let url = URL(string: tcmJSON) else {
@@ -38,10 +39,10 @@ struct NetworkManager {
             
             do {
                 let decoder = JSONDecoder()
+                #warning("Want to get this decoding properly")
                 //decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movies = try decoder.decode([Movie].self, from: data)
                 let duplicatesRemoved = removeDuplicateMovies(movies: movies)
-                // print(duplicatesRemoved.count)
                 completed(.success(duplicatesRemoved))
             } catch {
                 completed(.failure(.invalidData))
@@ -132,7 +133,6 @@ struct NetworkManager {
         }
         
         for idx in stride(from: idx1, to: idx1 + 5, by: 1) {
-            //print("These are strided \(idx)")
             movieTonightArray.append(duplicatesRemoved[idx])
         }
         
