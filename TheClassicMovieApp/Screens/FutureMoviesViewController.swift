@@ -128,6 +128,7 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieListingCell.reuseIdentifier) as! MovieListingCell
         let movie = splitMoviesIntoDays[indexPath.section][indexPath.row]
         
+        
         cell.setMovieListingCell(movie: movie)
         
         return cell
@@ -153,6 +154,11 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
 
         let navController = UINavigationController(rootViewController: destinationVC)
         present(navController, animated: true)
+    }
+    
+    
+    private func didSwipeToAddToSchedule(_ sender: UISwipeGestureRecognizer) {
+        
     }
 }
 

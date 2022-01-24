@@ -87,8 +87,8 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let schedule = scheduledMovies[indexPath.row]
         let destVC = MovieDetailsViewController()
-        destVC.nameLabel.text = schedule.Name
-        destVC.title = schedule.Name
+        destVC.nameLabel.text = schedule.name
+        destVC.title = schedule.name
 
         navigationController?.pushViewController(destVC, animated: true)
     }

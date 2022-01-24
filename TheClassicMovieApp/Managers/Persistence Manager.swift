@@ -31,7 +31,7 @@ enum PersistenceManager {
                     }
                     scheduledMovie.append(scheduled)
                 case .remove:
-                    scheduledMovie.removeAll { $0.StartDate == scheduled.StartDate }
+                    scheduledMovie.removeAll { $0.startDate == scheduled.startDate }
                 }
                 completed(save(scheduled: scheduledMovie))
 

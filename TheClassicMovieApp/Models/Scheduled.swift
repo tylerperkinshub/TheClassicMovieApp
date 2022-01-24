@@ -9,8 +9,8 @@ import Foundation
 
 struct Scheduled: Codable, Hashable {
     
-    let Name: String
-    let StartDate: String
-    let Length: String
-    let ReleaseYear: String
+    let name: String
+    let startDate: String
+    let length: String
+    let releaseYear: String
 }

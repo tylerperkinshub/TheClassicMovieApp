@@ -10,11 +10,7 @@ import UIKit
 class NetworkManager {
     
     static let shared = NetworkManager()
-    
     private let tcmJSON = "https://tcmws.tcm.com/tcmws/NewSchedule/est"
-    
-    let cache = NSCache<NSString, UIImage>()
-    
     
     func getTCMData(completed:@escaping (Result<[Movie], TCMError>) -> Void) {
        
@@ -86,7 +82,6 @@ class NetworkManager {
         }
         task.resume()
     }
-    
     
     
     func removeDuplicateMovies(movies: [Movie]) -> [Movie] {
