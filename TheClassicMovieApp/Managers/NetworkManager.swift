@@ -41,8 +41,6 @@ class NetworkManager {
             
             do {
                 let decoder = JSONDecoder()
-                #warning("Want to get this decoding properly")
-                //decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movies = try decoder.decode([Movie].self, from: data)
                 let duplicatesRemoved = self.removeDuplicateMovies(movies: movies)
                 completed(.success(duplicatesRemoved))
