@@ -80,7 +80,7 @@ class FutureMoviesViewController: UIViewController {
     func createSectionHeaderSet(movies: [Movie]){
 
         for movie in movies {
-          let _ = movieSectionHeaderSet.append(String(movie.StartDate.prefix(10)))
+          let _ = movieSectionHeaderSet.append(String(movie.startDate.prefix(10)))
         }
     }
     
@@ -92,7 +92,7 @@ class FutureMoviesViewController: UIViewController {
         var dayIdx = 0
 
         for movie in movies {
-            if movie.StartDate.prefix(10) != movieSectionHeaderSet[itemIdx] {
+            if movie.startDate.prefix(10) != movieSectionHeaderSet[itemIdx] {
                 moviesIntoDays.insert(todaysMovies, at: dayIdx)
                 todaysMovies = []
                 todaysMovies.append(movie)
@@ -153,15 +153,15 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         let destinationVC = MovieDetailsViewController()
         
         destinationVC.movieHeaderImage.downloadImages(from: movie.profileImage!)
-        destinationVC.nameLabel.text = movie.Name
-        destinationVC.yearLabel.text = "(\(movie.ReleaseYear ?? 1900))"
-        destinationVC.lengthLabel.text = "\(movie.Length ?? 0) min"
-        destinationVC.ratingLabel.text = movie.tvRating
-        destinationVC.genreLabel.text = movie.tvGenres
-        destinationVC.directorLabel.text = "Dir. \(movie.Director ?? "")"
-        destinationVC.categoryLabel.text = movie.Franchise
-        destinationVC.startingLabel.text = "Stars: \(movie.Cast ?? "")"
-        destinationVC.descriptionBodyLabel.text = movie.Storyline
+        destinationVC.nameLabel.text = movie.name
+        destinationVC.yearLabel.text = "(\(movie.releaseYear ?? 1900))"
+        destinationVC.lengthLabel.text = "\(movie.length ?? 0) min"
+        destinationVC.ratingLabel.text = movie.rating
+        destinationVC.genreLabel.text = movie.genres
+        destinationVC.directorLabel.text = "Dir. \(movie.director ?? "")"
+        destinationVC.categoryLabel.text = movie.category
+        destinationVC.startingLabel.text = "Stars: \(movie.cast ?? "")"
+        destinationVC.descriptionBodyLabel.text = movie.summary
 
         let navController = UINavigationController(rootViewController: destinationVC)
         present(navController, animated: true)

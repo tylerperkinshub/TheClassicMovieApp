@@ -7,6 +7,8 @@
 
 import Foundation
 
+#warning("Need to refer back and comb through all this to get it working")
+
 enum PersistenceActionType {
     case add, remove
 }

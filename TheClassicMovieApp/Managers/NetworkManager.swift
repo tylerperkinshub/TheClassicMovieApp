@@ -92,9 +92,9 @@ struct NetworkManager {
         
         
         for movie in movies {
-            if !uniqueMovies.contains(movie.SortDate) {
+            if !uniqueMovies.contains(movie.sortDate) {
                 duplicatesRemoved.append(movie)
-                uniqueMovies.insert(movie.SortDate)
+                uniqueMovies.insert(movie.sortDate)
             }
         }
 
@@ -109,9 +109,9 @@ struct NetworkManager {
         var movieTonightArray: [Movie] = []
         
         for movie in movies {
-            if !uniqueMovies.contains(movie.SortDate) {
+            if !uniqueMovies.contains(movie.sortDate) {
                 duplicatesRemoved.append(movie)
-                uniqueMovies.insert(movie.SortDate)
+                uniqueMovies.insert(movie.sortDate)
             }
         }
         
@@ -121,7 +121,7 @@ struct NetworkManager {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let today = dateFormatter.string(from: date)
         
-        movieTonight = duplicatesRemoved.filter { $0.StartDate == "\(today) 08:00:00 pm" }
+        movieTonight = duplicatesRemoved.filter { $0.startDate == "\(today) 08:00:00 pm" }
         
         guard let idx1 = duplicatesRemoved.firstIndex(where: { $0 == movieTonight.first }) else {
             return movieTonight
