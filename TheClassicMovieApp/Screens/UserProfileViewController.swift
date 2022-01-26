@@ -9,9 +9,9 @@ import UIKit
 
 class UserProfileViewController: UIViewController {
 
-    let tableView = UITableView()
     var scheduledMovies: [Scheduled] = []
-    
+
+    let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,12 @@ class UserProfileViewController: UIViewController {
         getFavorites()
     }
     
+    
     func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
     
     func configureTableView() {
         view.addSubview(tableView)
@@ -40,8 +42,9 @@ class UserProfileViewController: UIViewController {
         tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.reuseID)
     }
     
+    
     func getFavorites() {
-        PersistenceManager.retrievedScheduled { [weak self] result in
+        PersistenceManager.retrieveScheduled { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let schedule):
@@ -78,6 +81,16 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
         cell.set(schedule: scheduled)
         
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let schedule = scheduledMovies[indexPath.row]
+        let destVC = MovieDetailsViewController()
+        destVC.nameLabel.text = schedule.name
+        destVC.title = schedule.name
+
+        navigationController?.pushViewController(destVC, animated: true)
     }
     
     

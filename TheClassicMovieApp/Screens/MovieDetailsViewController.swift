@@ -140,14 +140,11 @@ class MovieDetailsViewController: UIViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                self.dismissVC()
+                print("Saved")
                 return
             }
             
-            let alert = UIAlertController(title: "Issue with Persistence", message: error.rawValue, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-
+            print("There was an error when saving: \(error.rawValue)")
         }
     }
 }

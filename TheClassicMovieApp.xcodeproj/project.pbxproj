@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E594EA3270793E0006FCC50 /* Persistence Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA2270793E0006FCC50 /* Persistence Manager.swift */; };
 		8E594EA527079842006FCC50 /* Scheduled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA427079842006FCC50 /* Scheduled.swift */; };
 		8E594EA82707F064006FCC50 /* TCMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA72707F064006FCC50 /* TCMButton.swift */; };
+		8E5B6C7C27A0A1070064ABF3 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B6C7B27A0A1070064ABF3 /* PersistenceManager.swift */; };
 		8EA46BB9270A72BE004DABC1 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA46BB8270A72BE004DABC1 /* ScheduleCell.swift */; };
 		8EA46BBC270D0AAC004DABC1 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8EA46BBB270D0AAC004DABC1 /* Collections */; };
 		8EA46BBE270D0AAC004DABC1 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 8EA46BBD270D0AAC004DABC1 /* DequeModule */; };
@@ -38,9 +38,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8E594EA2270793E0006FCC50 /* Persistence Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistence Manager.swift"; sourceTree = "<group>"; };
 		8E594EA427079842006FCC50 /* Scheduled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduled.swift; sourceTree = "<group>"; };
 		8E594EA72707F064006FCC50 /* TCMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMButton.swift; sourceTree = "<group>"; };
+		8E5B6C7B27A0A1070064ABF3 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		8EA46BB8270A72BE004DABC1 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		8EA46BC1270D0D61004DABC1 /* ScheduleDayHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDayHeaderCell.swift; sourceTree = "<group>"; };
 		8EF11E9526F905F7000788EF /* TheClassicMovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheClassicMovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF11EC226F9210D000788EF /* NetworkManager.swift */,
-				8E594EA2270793E0006FCC50 /* Persistence Manager.swift */,
+				8E5B6C7B27A0A1070064ABF3 /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -307,8 +307,8 @@
 				8E594EA527079842006FCC50 /* Scheduled.swift in Sources */,
 				8EF11EB626F91E91000788EF /* UserProfileViewController.swift in Sources */,
 				8EF11EBB26F91FA0000788EF /* MovieListingCell.swift in Sources */,
+				8E5B6C7C27A0A1070064ABF3 /* PersistenceManager.swift in Sources */,
 				8EF11EBE26F91FE8000788EF /* OnTonightCell.swift in Sources */,
-				8E594EA3270793E0006FCC50 /* Persistence Manager.swift in Sources */,
 				8E594EA82707F064006FCC50 /* TCMButton.swift in Sources */,
 				8EF11E9B26F905F7000788EF /* SceneDelegate.swift in Sources */,
 				8EF11EC826F92593000788EF /* TCMError.swift in Sources */,
