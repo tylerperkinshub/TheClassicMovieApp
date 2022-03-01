@@ -12,6 +12,8 @@ class ScheduleCell: UITableViewCell {
     static let reuseID = "ScheduleCell"
 
     let nameLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .bold, minimumScaleFactor: 0.85)
+    let yearLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .light, minimumScaleFactor: 0.85)
+    let startTimeLabel = TCMLabel(textAlignment: .left, fontSize: 14, fontWeight: .regular, minimumScaleFactor: 0.85)
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,20 +28,33 @@ class ScheduleCell: UITableViewCell {
     
     func set(schedule: Scheduled) {
         nameLabel.text = schedule.name
+        yearLabel.text = schedule.releaseYear
+        startTimeLabel.text = String(schedule.startDate.suffix(10))
+        
         
 
     }
     
     private func configure() {
+        addSubview(startTimeLabel)
         addSubview(nameLabel)
-        accessoryType = .disclosureIndicator
+        addSubview(yearLabel)
         
-        let padding: CGFloat = 12
+        
+        let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
+            startTimeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            startTimeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            startTimeLabel.heightAnchor.constraint(equalToConstant: 20),
+            
             nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            nameLabel.leadingAnchor.constraint(equalTo: startTimeLabel.trailingAnchor, constant: padding),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            yearLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            yearLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: padding),
+            yearLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 }

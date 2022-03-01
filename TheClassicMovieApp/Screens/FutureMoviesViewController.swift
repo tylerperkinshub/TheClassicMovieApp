@@ -160,8 +160,9 @@ extension FutureMoviesViewController: UITableViewDelegate, UITableViewDataSource
         destinationVC.genreLabel.text = movie.genres
         destinationVC.directorLabel.text = "Dir. \(movie.director ?? "")"
         destinationVC.categoryLabel.text = movie.category
-        destinationVC.startingLabel.text = "Stars: \(movie.cast ?? "")"
+        destinationVC.starringLabel.text = "Stars: \(movie.cast ?? "")"
         destinationVC.descriptionBodyLabel.text = movie.summary
+        destinationVC.startLabel.text = movie.startDate
 
         let navController = UINavigationController(rootViewController: destinationVC)
         present(navController, animated: true)
