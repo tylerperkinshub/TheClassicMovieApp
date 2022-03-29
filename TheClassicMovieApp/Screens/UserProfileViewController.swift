@@ -12,7 +12,7 @@ class UserProfileViewController: UIViewController {
 
     var scheduledMovies: [Scheduled] = []
     var scheduledMoviesToDisplay: [[Scheduled]] = []
-    var scheduledMoviesHeaderSet: OrderedSet<String> = []
+    var scheduledMoviesHeaderSet: [String] = []
 
     let tableView = UITableView()
     
@@ -29,7 +29,6 @@ class UserProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         #warning("When adding a movie to a day already added. The new movie does not show up until a new movie day is added. So something in the ")
         getFavorites()
-        
     }
     
     
@@ -59,9 +58,11 @@ class UserProfileViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true)
                 } else {
+                    //print(schedule)
 
                     self.createSectionHeaderSet(movies: schedule)
-                    self.scheduledMoviesToDisplay = self.convertMovieToDays(movies: schedule, sections: self.scheduledMoviesHeaderSet.count)
+                    self.scheduledMoviesToDisplay = self.sortMoviesIntoDaysByTime(movies: schedule)
+                    
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -110,6 +111,47 @@ class UserProfileViewController: UIViewController {
         print("Convert Movie To Days: \(moviesIntoDays)")
         return moviesIntoDays
         }
+    
+    
+    
+    func sortMoviesIntoDaysByTime(movies: [Scheduled]) -> [[Scheduled]] {
+        
+        var returnedMovies: [[Scheduled]] = []
+        var todaysMovies: [Scheduled] = []
+        var dateSet: [String] = []
+        var itemIndex = 0
+        
+        
+
+        // creating number of days
+        for movie in movies.sorted(by: {$0.startDate.prefix(10) < $1.startDate.prefix(10) }) {
+            if !dateSet.contains(String(movie.startDate.prefix(10))) {
+                dateSet.append(String(movie.startDate.prefix(10)))
+            }
+        }
+        
+        scheduledMoviesHeaderSet = dateSet
+        
+        // adding movies to 2d array sorted by time
+        for movie in movies.sorted(by: {$0.startDate.prefix(10) < $1.startDate.prefix(10) }) {
+            if movie.startDate.prefix(10) == dateSet[itemIndex] {
+                todaysMovies.append(movie)
+
+            } else {
+                returnedMovies.insert(todaysMovies.sorted(by: { $0.startDate.suffix(10) < $1.startDate.suffix(10) }), at: itemIndex)
+                itemIndex += 1
+                todaysMovies = []
+                todaysMovies.append(movie)
+            }
+        }
+        
+        // adding in movies on last day
+        if todaysMovies.count > 0 {
+            returnedMovies.insert(todaysMovies.sorted(by: { $0.startDate.suffix(10) < $1.startDate.suffix(10) }), at: itemIndex)
+        }
+        
+        return returnedMovies
+    }
 
     
 }
@@ -180,6 +222,7 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
             self.present(alert, animated: true)
         }
         
+        getFavorites()
         print("New array after deleted: \(scheduledMoviesToDisplay)")
 
         //tableView.deleteRows(at: [indexPath], with: .left)

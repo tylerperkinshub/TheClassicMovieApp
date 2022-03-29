@@ -29,7 +29,7 @@ class ScheduleCell: UITableViewCell {
     func set(schedule: Scheduled) {
         nameLabel.text = schedule.name
         yearLabel.text = schedule.releaseYear
-        startTimeLabel.text = String(schedule.startDate.suffix(10))
+        startTimeLabel.text = movieStartTime(movie: schedule)
         
         
 
@@ -57,4 +57,24 @@ class ScheduleCell: UITableViewCell {
             yearLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
+    
+    func movieStartTime(movie: Scheduled) -> String {
+        var startTime = movie.startDate
+        
+        let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
+        let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
+        let midRangeRemoveDate = lowBoundRemoveDate ..< hiBoundRemoveDate
+        startTime.removeSubrange(midRangeRemoveDate)
+        
+        let lowBoundRemoveSeconds = startTime.index(startTime.startIndex, offsetBy: 5)
+        let hiBoundRemoveSeconds = startTime.index(startTime.endIndex, offsetBy: -3)
+        let midRangeRemoveSeconds = lowBoundRemoveSeconds ..< hiBoundRemoveSeconds
+        startTime.removeSubrange(midRangeRemoveSeconds)
+
+        if startTime.first == "0" {
+            startTime.remove(at: startTime.startIndex)
+        }
+        return startTime
+    }
+    
 }
