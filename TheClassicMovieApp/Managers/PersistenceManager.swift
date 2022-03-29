@@ -32,9 +32,10 @@ enum PersistenceManager {
                     favorites.append(scheduled)
                     
                 case .remove:
-                    favorites.removeAll { $0.name  == scheduled.name }
+                    favorites.removeAll { $0.startDate  == scheduled.startDate }
+                    print("Favorites afer deleted: \(favorites)")
                 }
-                
+
                 completed(save(favorites: favorites))
                 
             case .failure(let error):

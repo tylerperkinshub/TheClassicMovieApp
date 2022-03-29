@@ -140,7 +140,8 @@ class MovieDetailsViewController: UIViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                print("Saved")
+                print(scheduledMovie.name)
+                self.dismissVC()
                 return
             }
             

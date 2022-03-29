@@ -14,4 +14,9 @@ struct Scheduled: Codable, Hashable {
     let length: String
     let releaseYear: String
 
+    
+    func deletedMatch(string: String) -> Bool {
+        return startDate.contains(string)
+    }
+    
 }
