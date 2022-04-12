@@ -136,7 +136,12 @@ class MovieDetailsViewController: UIViewController {
     @objc func addToScheduleButtonTapped() {
         let scheduledMovie = Scheduled(name: nameLabel.text!, startDate: startLabel.text!, length: lengthLabel.text!, releaseYear: yearLabel.text!)
         
-        PersistenceManager.updateWith(scheduled: scheduledMovie, actionType: .add) { [weak self] error in
+        let newScheduledMovie = convertTo24hrClockAndReplaceStartDateTime(movie: scheduledMovie)
+        print(newScheduledMovie)
+        
+        
+        
+        PersistenceManager.updateWith(scheduled: newScheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
             
             guard let error = error else {
@@ -150,6 +155,28 @@ class MovieDetailsViewController: UIViewController {
     }
 }
 
+
+
+func convertTo24hrClockAndReplaceStartDateTime(movie: Scheduled) -> Scheduled {
+
+    var newScheduled = Scheduled(name: movie.name, startDate: movie.startDate, length: movie.length, releaseYear: movie.releaseYear)
+    
+    
+    let movieDate = String(movie.startDate.prefix(11))
+    
+    let dateAsString = String(movie.startDate.suffix(11))
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "hh:mm:ss a"
+    
+    
+    let date = dateFormatter.date(from: dateAsString)
+    dateFormatter.dateFormat = "HH:mm"
+    let date24 = dateFormatter.string(from: date!)
+    
+    newScheduled.startDate = movieDate + date24
+
+    return newScheduled
+}
 
 
 

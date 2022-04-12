@@ -9,10 +9,11 @@ import Foundation
 
 struct Scheduled: Codable, Hashable {
     
-    let name: String
-    let startDate: String
-    let length: String
-    let releaseYear: String
+    var name: String
+    var startDate: String
+    var length: String
+    var releaseYear: String
+    //var timeToSort: String = ""
 
     
     func deletedMatch(string: String) -> Bool {

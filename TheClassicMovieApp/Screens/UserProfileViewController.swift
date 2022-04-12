@@ -63,6 +63,9 @@ class UserProfileViewController: UIViewController {
                     self.createSectionHeaderSet(movies: schedule)
                     self.scheduledMoviesToDisplay = self.sortMoviesIntoDaysByTime(movies: schedule)
                     
+                    print("Movies scheduled to display: \(self.scheduledMoviesToDisplay)")
+                    
+                    
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -109,7 +112,9 @@ class UserProfileViewController: UIViewController {
             }
         }
         print("Convert Movie To Days: \(moviesIntoDays)")
-        return moviesIntoDays
+        
+            return moviesIntoDays
+        
         }
     
     
@@ -121,8 +126,6 @@ class UserProfileViewController: UIViewController {
         var dateSet: [String] = []
         var itemIndex = 0
         
-        
-
         // creating number of days
         for movie in movies.sorted(by: {$0.startDate.prefix(10) < $1.startDate.prefix(10) }) {
             if !dateSet.contains(String(movie.startDate.prefix(10))) {
@@ -136,7 +139,6 @@ class UserProfileViewController: UIViewController {
         for movie in movies.sorted(by: {$0.startDate.prefix(10) < $1.startDate.prefix(10) }) {
             if movie.startDate.prefix(10) == dateSet[itemIndex] {
                 todaysMovies.append(movie)
-
             } else {
                 returnedMovies.insert(todaysMovies.sorted(by: { $0.startDate.suffix(10) < $1.startDate.suffix(10) }), at: itemIndex)
                 itemIndex += 1
@@ -150,10 +152,9 @@ class UserProfileViewController: UIViewController {
             returnedMovies.insert(todaysMovies.sorted(by: { $0.startDate.suffix(10) < $1.startDate.suffix(10) }), at: itemIndex)
         }
         
+        print("Returned movies: \(returnedMovies)")
         return returnedMovies
     }
-
-    
 }
 
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {

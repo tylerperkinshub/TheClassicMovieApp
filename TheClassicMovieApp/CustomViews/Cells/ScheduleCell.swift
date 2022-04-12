@@ -59,22 +59,23 @@ class ScheduleCell: UITableViewCell {
     }
     
     func movieStartTime(movie: Scheduled) -> String {
-        var startTime = movie.startDate
+        var startTime = String(movie.startDate)
         
-        let lowBoundRemoveDate = startTime.index(startTime.startIndex, offsetBy: 0)
-        let hiBoundRemoveDate = startTime.index(startTime.endIndex, offsetBy: -11)
-        let midRangeRemoveDate = lowBoundRemoveDate ..< hiBoundRemoveDate
-        startTime.removeSubrange(midRangeRemoveDate)
+        startTime = String(startTime.suffix(5))
         
-        let lowBoundRemoveSeconds = startTime.index(startTime.startIndex, offsetBy: 5)
-        let hiBoundRemoveSeconds = startTime.index(startTime.endIndex, offsetBy: -3)
-        let midRangeRemoveSeconds = lowBoundRemoveSeconds ..< hiBoundRemoveSeconds
-        startTime.removeSubrange(midRangeRemoveSeconds)
-
-        if startTime.first == "0" {
-            startTime.remove(at: startTime.startIndex)
+        let dateAsString = startTime
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        let date = dateFormatter.date(from: dateAsString)
+        dateFormatter.dateFormat = "hh:mm a"
+        var date24 = dateFormatter.string(from: date!)
+        
+        if date24.first == "0" {
+            date24.remove(at: startTime.startIndex)
         }
-        return startTime
+        
+        return date24
     }
     
 }
