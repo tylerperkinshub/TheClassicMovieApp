@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 protocol MovieDetailsVCDelegate: AnyObject {
     func didRequestFollowers(for movie: String)
@@ -134,6 +135,19 @@ class MovieDetailsViewController: UIViewController {
     
 
     @objc func addToScheduleButtonTapped() {
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("All set!")
+                DispatchQueue.main.async {
+                    self.dismissVC()
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        
         let scheduledMovie = Scheduled(name: nameLabel.text!, startDate: startLabel.text!, length: lengthLabel.text!, releaseYear: yearLabel.text!)
         
         let newScheduledMovie = convertTo24hrClockAndReplaceStartDateTime(movie: scheduledMovie)
@@ -146,7 +160,6 @@ class MovieDetailsViewController: UIViewController {
             
             guard let error = error else {
                 print(scheduledMovie.name)
-                self.dismissVC()
                 return
             }
             
