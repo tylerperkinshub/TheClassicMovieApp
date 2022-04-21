@@ -35,6 +35,14 @@ class MovieDetailsViewController: UIViewController {
         configureViewController()
         layoutUI()
         configureAddToScheduleButton()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("All set!")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
 
     }
     
@@ -136,35 +144,50 @@ class MovieDetailsViewController: UIViewController {
 
     @objc func addToScheduleButtonTapped() {
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                print("All set!")
-                DispatchQueue.main.async {
-                    self.dismissVC()
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        
         
         let scheduledMovie = Scheduled(name: nameLabel.text!, startDate: startLabel.text!, length: lengthLabel.text!, releaseYear: yearLabel.text!)
         
         let newScheduledMovie = convertTo24hrClockAndReplaceStartDateTime(movie: scheduledMovie)
         print(newScheduledMovie)
         
+        let movieTime = newScheduledMovie.startDate.suffix(5)
         
         
         PersistenceManager.updateWith(scheduled: newScheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
             
+
+            
             guard let error = error else {
                 print(scheduledMovie.name)
+                self.dismissVC()
                 return
             }
             
             print("There was an error when saving: \(error.rawValue)")
         }
+        
+        let content = UNMutableNotificationContent()
+        content.title = scheduledMovie.name + " " + scheduledMovie.releaseYear
+        content.subtitle = String(scheduledMovie.startDate.suffix(11))
+        content.sound = UNNotificationSound.default
+        print("Content Scheduled: \(content.title) Content Time: \(content.subtitle)")
+        
+        // Setup trigger time
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+        var testDate = DateComponents() // Set this to whatever date you need
+        testDate.hour = Int(movieTime.prefix(2))
+        testDate.minute = Int(movieTime.suffix(2))
+        let trigger = UNCalendarNotificationTrigger(dateMatching: testDate, repeats: false)
+        
+        print("Setting date: \(testDate)")
+        
+        // Create request
+        let uniqueID = UUID().uuidString // Keep a record of this if necessary
+        let request = UNNotificationRequest(identifier: uniqueID, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) // Add the notification request
+
     }
 }
 
