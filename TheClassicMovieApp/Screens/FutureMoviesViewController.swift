@@ -27,6 +27,16 @@ class FutureMoviesViewController: UIViewController {
         getMovies()
         configureTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getMovies()
+        configureTableView()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+
+    }
   
 
     func configureViewController() {

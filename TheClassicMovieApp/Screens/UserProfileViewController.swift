@@ -27,7 +27,6 @@ class UserProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        #warning("When adding a movie to a day already added. The new movie does not show up until a new movie day is added. So something in the ")
         getFavorites()
     }
     
@@ -52,21 +51,21 @@ class UserProfileViewController: UIViewController {
         PersistenceManager.retrieveScheduled { [weak self] result in
             guard let self = self else { return }
             switch result {
+                
             case .success(let schedule):
+                print("This is my schedule: \(schedule)")
                 if schedule.isEmpty {
+                    self.scheduledMoviesToDisplay = []
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.view.bringSubviewToFront(self.tableView)
+                    }
                     let alert = UIAlertController(title: "Add some movies", message: "You currently have no movies scheduled", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true)
                 } else {
-                    //print(schedule)
-
                     self.createSectionHeaderSet(movies: schedule)
                     self.scheduledMoviesToDisplay = self.sortMoviesIntoDaysByTime(movies: schedule)
-                    
-                    print("Movies scheduled to display: \(self.scheduledMoviesToDisplay)")
-                    
-                    
-                    
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                         self.view.bringSubviewToFront(self.tableView)
@@ -96,14 +95,10 @@ class UserProfileViewController: UIViewController {
         var dayIdx = 0
 
         for movie in movies {
-            print("Movie getting evaluated: \(movie)")
             if movie.startDate.prefix(10) != scheduledMoviesHeaderSet[itemIdx] {
-                //moviesIntoDays.insert(todaysMovies, at: dayIdx)
                 moviesIntoDays.insert(todaysMovies, at: dayIdx)
                 todaysMovies.append(movie)
 
-                print("todaysMovies appendend: \(movie) \n \n ")
-                print("todaysMovies contains: \(todaysMovies)\n \n")
                 todaysMovies = []
                 itemIdx += 1
                 dayIdx += 1
@@ -111,12 +106,8 @@ class UserProfileViewController: UIViewController {
                 todaysMovies.append(movie)
             }
         }
-        print("Convert Movie To Days: \(moviesIntoDays)")
-        
             return moviesIntoDays
-        
         }
-    
     
     
     func sortMoviesIntoDaysByTime(movies: [Scheduled]) -> [[Scheduled]] {
@@ -146,13 +137,10 @@ class UserProfileViewController: UIViewController {
                 todaysMovies.append(movie)
             }
         }
-        
         // adding in movies on last day
         if todaysMovies.count > 0 {
             returnedMovies.insert(todaysMovies.sorted(by: { $0.startDate.suffix(10) < $1.startDate.suffix(10) }), at: itemIndex)
         }
-        
-        print("Returned movies: \(returnedMovies)")
         return returnedMovies
     }
 }
@@ -160,6 +148,7 @@ class UserProfileViewController: UIViewController {
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return scheduledMoviesToDisplay.count
     }
     
@@ -192,40 +181,19 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         
         let scheduledItem = scheduledMoviesToDisplay[indexPath.section][indexPath.row]
-        print("Item getting deleted\(scheduledItem)")
-        
-//        let flatDeletedArray = scheduledMoviesToDisplay.flatMap { $0 }
-//        let creatingArray = flatDeletedArray.filter { $0.startDate == scheduledItem.startDate }
-//        var sectionsCount = createSectionHeaderSet(movies: creatingArray)
-//        var returnThis = convertMovieToDays(movies: creatingArray, sections: sectionsCount.count)
-//
-//         scheduledMoviesToDisplay.remove(at: indexPath.section)
-        
-        for movies in scheduledMoviesToDisplay {
-            for movie in movies {
-                if movie.startDate == scheduledItem.startDate {
 
-                }
-            }
-        }
-        
         PersistenceManager.updateWith(scheduled: scheduledItem, actionType: .remove) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else { return }
-            
+        
             let alert = UIAlertController(title: "Something went wrong", message: error.rawValue, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
-        
         getFavorites()
-        print("New array after deleted: \(scheduledMoviesToDisplay)")
-
-        //tableView.deleteRows(at: [indexPath], with: .left)
     }
 }

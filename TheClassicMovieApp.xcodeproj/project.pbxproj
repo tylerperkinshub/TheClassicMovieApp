@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E261E4E281714070071276B /* TCMTimeAndDateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E261E4D281714070071276B /* TCMTimeAndDateComponents.swift */; };
 		8E594EA527079842006FCC50 /* Scheduled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA427079842006FCC50 /* Scheduled.swift */; };
 		8E594EA82707F064006FCC50 /* TCMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E594EA72707F064006FCC50 /* TCMButton.swift */; };
 		8E5B6C7C27A0A1070064ABF3 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B6C7B27A0A1070064ABF3 /* PersistenceManager.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E261E4D281714070071276B /* TCMTimeAndDateComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMTimeAndDateComponents.swift; sourceTree = "<group>"; };
 		8E594EA427079842006FCC50 /* Scheduled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduled.swift; sourceTree = "<group>"; };
 		8E594EA72707F064006FCC50 /* TCMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCMButton.swift; sourceTree = "<group>"; };
 		8E5B6C7B27A0A1070064ABF3 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF11EC726F92592000788EF /* TCMError.swift */,
+				8E261E4D281714070071276B /* TCMTimeAndDateComponents.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				8EF11EBB26F91FA0000788EF /* MovieListingCell.swift in Sources */,
 				8E5B6C7C27A0A1070064ABF3 /* PersistenceManager.swift in Sources */,
 				8EF11EBE26F91FE8000788EF /* OnTonightCell.swift in Sources */,
+				8E261E4E281714070071276B /* TCMTimeAndDateComponents.swift in Sources */,
 				8E594EA82707F064006FCC50 /* TCMButton.swift in Sources */,
 				8EF11E9B26F905F7000788EF /* SceneDelegate.swift in Sources */,
 				8EF11EC826F92593000788EF /* TCMError.swift in Sources */,

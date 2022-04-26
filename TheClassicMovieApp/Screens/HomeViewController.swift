@@ -30,6 +30,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        getMovies()
+        configureDataSource()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+
     }
     
     

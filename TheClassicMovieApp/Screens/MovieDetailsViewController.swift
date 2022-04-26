@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController {
     let addToScheduleButton     = TCMButton(backgroundColor: .systemGray2, title: "Add to Schedule")
     let startLabel              = TCMLabel(textAlignment: .left, fontSize: 16, fontWeight: .regular, minimumScaleFactor: 0.85)
     
+    let monthDayComponents = TCMTimeAndDateComponenets()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,8 +151,6 @@ class MovieDetailsViewController: UIViewController {
         let newScheduledMovie = convertTo24hrClockAndReplaceStartDateTime(movie: scheduledMovie)
         print(newScheduledMovie)
         
-        let movieTime = newScheduledMovie.startDate.suffix(5)
-        
         
         PersistenceManager.updateWith(scheduled: newScheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
@@ -169,7 +168,7 @@ class MovieDetailsViewController: UIViewController {
         
         let content = UNMutableNotificationContent()
         content.title = scheduledMovie.name + " " + scheduledMovie.releaseYear
-        content.subtitle = String(scheduledMovie.startDate.suffix(11))
+        content.subtitle = "\(monthDayComponents.tweleveHour(movieDate: scheduledMovie.startDate)):\(monthDayComponents.minute(movieDate: scheduledMovie.startDate)) \(monthDayComponents.amOrPm(movieDate: scheduledMovie.startDate))"
         content.sound = UNNotificationSound.default
         print("Content Scheduled: \(content.title) Content Time: \(content.subtitle)")
         
@@ -177,11 +176,21 @@ class MovieDetailsViewController: UIViewController {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         var testDate = DateComponents() // Set this to whatever date you need
-        testDate.hour = Int(movieTime.prefix(2))
-        testDate.minute = Int(movieTime.suffix(2))
+        
+        testDate.hour = Int(monthDayComponents.TwentyFourHour(movieDate: scheduledMovie.startDate))
+        testDate.minute = Int(monthDayComponents.minute(movieDate: scheduledMovie.startDate))
+        testDate.timeZone = TimeZone(identifier: "EST")
+        testDate.month = Int(monthDayComponents.month(movieDate: scheduledMovie.startDate))
+        testDate.day = Int(monthDayComponents.day(movieDate: scheduledMovie.startDate))
+        testDate.year = Int(monthDayComponents.year(movieDate: scheduledMovie.startDate))
+        
+
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: testDate, repeats: false)
         
-        print("Setting date: \(testDate)")
+        print("Setting date: \(testDate) \n")
+        
+        print(scheduledMovie)
         
         // Create request
         let uniqueID = UUID().uuidString // Keep a record of this if necessary
