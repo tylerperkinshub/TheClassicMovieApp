@@ -177,18 +177,16 @@ class MovieDetailsViewController: UIViewController {
         calendar.timeZone = TimeZone.current
         var testDate = DateComponents() // Set this to whatever date you need
         
-        testDate.hour = Int(monthDayComponents.TwentyFourHour(movieDate: scheduledMovie.startDate))
+        testDate.hour = Int(monthDayComponents.twentyFourHour(movieDate: scheduledMovie.startDate))
         testDate.minute = Int(monthDayComponents.minute(movieDate: scheduledMovie.startDate))
-        testDate.timeZone = TimeZone(identifier: "EST")
+        testDate.timeZone = TimeZone(identifier: "EDT")
         testDate.month = Int(monthDayComponents.month(movieDate: scheduledMovie.startDate))
         testDate.day = Int(monthDayComponents.day(movieDate: scheduledMovie.startDate))
         testDate.year = Int(monthDayComponents.year(movieDate: scheduledMovie.startDate))
         
-
-        
         let trigger = UNCalendarNotificationTrigger(dateMatching: testDate, repeats: false)
         
-        print("Setting date: \(testDate) \n")
+        print("Setting date: Month:\(testDate.month!), Day: \(testDate.day!), Hour: \(testDate.hour!), Minute \(testDate.minute!) ")
         
         print(scheduledMovie)
         

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import OrderedCollections
+import NotificationCenter
 
 class UserProfileViewController: UIViewController {
 
@@ -15,6 +15,8 @@ class UserProfileViewController: UIViewController {
     var scheduledMoviesHeaderSet: [String] = []
 
     let tableView = UITableView()
+    let notificationCenter = UNUserNotificationCenter.current()
+    
     
     
     override func viewDidLoad() {
@@ -185,6 +187,13 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
         guard editingStyle == .delete else { return }
         
         let scheduledItem = scheduledMoviesToDisplay[indexPath.section][indexPath.row]
+        
+        notificationCenter.getPendingNotificationRequests { (notificationRequests) in
+             for notificationRequest:UNNotificationRequest in notificationRequests {
+                 print(notificationRequest.trigger)
+                 print(notificationRequest.identifier)
+            }
+        }
 
         PersistenceManager.updateWith(scheduled: scheduledItem, actionType: .remove) { [weak self] error in
             guard let self = self else { return }

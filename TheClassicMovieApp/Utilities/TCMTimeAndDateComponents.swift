@@ -72,24 +72,25 @@ struct TCMTimeAndDateComponenets {
         return returnedString
     }
     
-    func TwentyFourHour(movieDate: String) -> String  {
+    func twentyFourHour(movieDate: String) -> String  {
         var returnedString = movieDate
         
         let lowBound = movieDate.startIndex
         let highBound = movieDate.index(movieDate.startIndex, offsetBy: 11)
         let midRange = lowBound ..< highBound
-        
-        
+
         returnedString.removeSubrange(midRange)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm:ss a"
+
+        let date = dateFormatter.date(from: returnedString)
+        dateFormatter.dateFormat = "HH:mm"
+        let date24 = dateFormatter.string(from: date!)
+
+        print("Movie Date: \(date24.prefix(2))")
         
-        let lowBound1 = returnedString.index(movieDate.startIndex, offsetBy: 2)
-        let highBound1 = returnedString.endIndex
-        let midRange1 = lowBound1 ..< highBound1
-        
-        returnedString.removeSubrange(midRange1)
-        let twentyFour = Int(returnedString)! + 12
-        
-        return String(twentyFour)
+        return String(date24.prefix(2))
     }
     
     func minute(movieDate: String) -> String {
