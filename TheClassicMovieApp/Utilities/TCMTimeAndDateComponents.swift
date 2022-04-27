@@ -87,8 +87,6 @@ struct TCMTimeAndDateComponenets {
         let date = dateFormatter.date(from: returnedString)
         dateFormatter.dateFormat = "HH:mm"
         let date24 = dateFormatter.string(from: date!)
-
-        print("Movie Date: \(date24.prefix(2))")
         
         return String(date24.prefix(2))
     }
