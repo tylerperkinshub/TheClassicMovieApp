@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 struct NetworkManager {
     
     static let shared = NetworkManager()
