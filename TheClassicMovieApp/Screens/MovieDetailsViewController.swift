@@ -145,6 +145,9 @@ class MovieDetailsViewController: UIViewController {
 
     @objc func addToScheduleButtonTapped() {
         
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        
         
         let scheduledMovie = Scheduled(name: nameLabel.text!, startDate: startLabel.text!, length: lengthLabel.text!, releaseYear: yearLabel.text!)
         
@@ -154,9 +157,6 @@ class MovieDetailsViewController: UIViewController {
         
         PersistenceManager.updateWith(scheduled: newScheduledMovie, actionType: .add) { [weak self] error in
             guard let self = self else { return }
-            
-
-            
             guard let error = error else {
                 print(scheduledMovie.name)
                 self.dismissVC()

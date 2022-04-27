@@ -65,6 +65,9 @@ class UserProfileViewController: UIViewController {
                     let alert = UIAlertController(title: "Add some movies", message: "You currently have no movies scheduled", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true)
+                    
+                    
+                    
                 } else {
                     self.createSectionHeaderSet(movies: schedule)
                     self.scheduledMoviesToDisplay = self.sortMoviesIntoDaysByTime(movies: schedule)
@@ -186,6 +189,9 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+        
         let scheduledItem = scheduledMoviesToDisplay[indexPath.section][indexPath.row]
         
         notificationCenter.getPendingNotificationRequests { (notificationRequests) in
@@ -205,4 +211,6 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
         }
         getFavorites()
     }
+    
+    
 }
