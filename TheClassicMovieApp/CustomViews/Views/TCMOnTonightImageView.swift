@@ -7,9 +7,12 @@
 
 import UIKit
 
+
 class TCMOnTonightImageView: UIImageView {
 
-    //let cache = NetworkManager.shared.cache
+    var imageUrlString: String?
+    let imageCache = NSCache<NSString, UIImage>()
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,12 +31,11 @@ class TCMOnTonightImageView: UIImageView {
     }
     
     func downloadImages(from urlString: String) {
-//        let cacheKey = NSString(string: urlString)
-//
-//        if let image = cache.object(forKey: cacheKey) {
-//            self.image = image
-//            return
-//        }
+        
+        if let imageFromCache = imageCache.object(forKey: urlString as NSString) {
+            self.image = imageFromCache
+            return
+        }
         
         guard let url = URL(string: urlString) else { return }
         
@@ -41,13 +43,16 @@ class TCMOnTonightImageView: UIImageView {
             guard let self = self else { return }
             
             if error != nil { return }
+            
+            
+            
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
             guard let data = data else { return }
             
             guard let image = UIImage(data: data) else { return }
-            //self.cache.setObject(image, forKey: cacheKey)
-            DispatchQueue.main.async { self.image = image }
             
+            DispatchQueue.main.async { self.image = image }
+            self.imageCache.setObject(image, forKey: urlString as NSString)
         }
         task.resume()
     }
