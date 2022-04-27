@@ -7,8 +7,7 @@
 
 import UIKit
 
-
-struct NetworkManager {
+class NetworkManager {
     
     static let shared = NetworkManager()
     private let tcmJSON = "https://tcmws.tcm.com/tcmws/NewSchedule/est"
@@ -39,7 +38,7 @@ struct NetworkManager {
             do {
                 let decoder = JSONDecoder()
                 let movies = try decoder.decode([Movie].self, from: data)
-                let duplicatesRemoved = removeDuplicateMovies(movies: movies)
+                let duplicatesRemoved = self.removeDuplicateMovies(movies: movies)
                 completed(.success(duplicatesRemoved))
             } catch {
                 completed(.failure(.invalidData))
@@ -75,7 +74,7 @@ struct NetworkManager {
                 let decoder = JSONDecoder()
                 //decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movies = try decoder.decode([Movie].self, from: data)
-                let moviesTonight = presentMoviesTonight(movies: movies)
+                let moviesTonight = self.presentMoviesTonight(movies: movies)
                 // print(moviesTonight.count)
                 completed(.success(moviesTonight))
             } catch {
@@ -128,7 +127,7 @@ struct NetworkManager {
             return movieTonight
         }
         
-        for idx in stride(from: idx1, to: idx1 + 5, by: 1) {
+        for idx in stride(from: idx1, to: idx1 + 4, by: 1) {
             //print("These are strided \(idx)")
             movieTonightArray.append(duplicatesRemoved[idx])
         }
